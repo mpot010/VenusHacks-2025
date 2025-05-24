@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+/* General Body Styling */
+body {
+  background: linear-gradient(145deg, #ff99cc, #f3e5f5); /* Makeup-inspired soft pinks and lavenders */
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* App container styling */
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.7); /* Light frosted effect for makeup vibe */
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(15px);
+}
+
+/* Glam header with bold makeup font */
+.glam-header {
+  font-size: 3rem;
+  color: #ff4081; /* Bold, fun pink to match makeup vibes */
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 3px 3px 12px rgba(255, 255, 255, 0.5), 0 0 25px rgba(255, 0, 100, 0.6); /* Glowy effect */
+  margin-bottom: 20px;
+}
+
+/* Intro text styling with makeup-friendly tone */
+.intro-text {
+  font-size: 1.4rem;
+  color: #bb33cc; /* Purple-pink tone to match makeup palettes */
+  margin-bottom: 40px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.7);
+}
+
+/* Button for account creation */
+.create-btn {
+  padding: 16px 32px;
+  font-size: 1.4rem;
+  background-color: #f50057; /* Bold makeup pink */
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0px 10px 20px rgba(255, 0, 87, 0.4);
+  transition: 0.3s ease-in-out;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.create-btn:hover {
+  background-color: #c51162; /* Darker pink for hover */
+  transform: translateY(-4px);
+  box-shadow: 0px 15px 30px rgba(255, 0, 87, 0.5);
+}
+
+.create-btn:focus {
+  outline: none;
+}
+
+/* Success message with a glamorous glow */
+.success-message {
+  font-size: 1.6rem;
+  color: #ffd700; /* Gold text for the glam effect */
+  font-weight: bold;
+  text-shadow: 3px 3px 10px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 215, 0, 0.6); /* Glowing golden effect */
+  margin-top: 30px;
+}
+
+/* Adding Makeup-inspired Glossy Effects */
+.glossy-effect {
+  background: linear-gradient(135deg, #ffd1dc, #ffccff); /* Soft gloss pink and lilac */
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(255, 192, 203, 0.3);
+  border: 1px solid #ff80ab;
+}
+
+.glitter {
+  color: #ffd700;
+  animation: sparkle 1s infinite; /* Glittery effect on text */
+}
+
+/* Glitter Animation for Sparkles */
+@keyframes sparkle {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Create a glossy shimmer effect on hover */
+.create-btn:hover {
+  background: linear-gradient(135deg, #ff4081, #ff80ab); /* Shiny gradient on button hover */
+}
+
+/* Optional image for background: Makeup-related */
+.App-header::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: url('https://www.example.com/makeup-image.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.15;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.glam-header {
+  font-family: 'Lobster', cursive; /* Adding a stylish font for headings */
+  font-size: 3.5rem;
+  color: #ff4081;
+  text-shadow: 3px 3px 15px rgba(255, 255, 255, 0.6);
+}
+
+
+
+
+
