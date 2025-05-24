@@ -1,17 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const navigate = useNavigate();
-  const savedLooks = JSON.parse(localStorage.getItem('savedLooks')) || [];
+  const [savedLooks, setSavedLooks] = useState([]);
 
-  const handleCreateLook = () => {
-    navigate('/look');
-  };
+  useEffect(() => {
+    const fetchLooks = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/get-looks');
+        const data = await response.json();
+        setSavedLooks(data);
+      } catch (err) {
+        console.error('Failed to fetch saved looks:', err);
+      }
+    };
 
-  const handleEditProfile = () => {
-    navigate('/create');
-  };
+    fetchLooks();
+  }, []);
+  {savedLooks.map((look, idx) => (
+    <div key={idx} style={styles.card}>
+      <div>
+        <strong>{look.title || `Look ${idx + 1}`}</strong>
+        <p style={{ marginTop: '0.5rem' }}>{look.occasion}</p>
+      </div>
+      <p style={{ fontSize: '0.8rem', color: '#888' }}>
+        {new Date(look.timestamp).toLocaleDateString()}
+      </p>
+      {/* Optional: show product names */}
+      <ul style={{ fontSize: '0.75rem', color: '#aaa', marginTop: '0.5rem' }}>
+        {look.products && look.products.map((prod, i) => (
+          <li key={i}>{prod.name}</li>
+        ))}
+      </ul>
+    </div>
+  ))}
+  
+  const handleCreateLook = () => navigate('/look');
+  const handleEditProfile = () => navigate('/create');
 
   const styles = {
     container: {
@@ -102,6 +128,7 @@ function Dashboard() {
           </div>
         ))}
 
+        {/* Always show this at the end */}
         <div
           style={styles.plusCard}
           onClick={handleCreateLook}

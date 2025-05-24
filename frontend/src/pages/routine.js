@@ -9,7 +9,8 @@ function Routine() {
   useEffect(() => {
     const saved = localStorage.getItem('recommendation');
     if (saved) {
-      const lines = saved.split('\n').filter(Boolean);
+      const allLines = saved.split('\n').filter(Boolean);
+      const lines = allLines.slice(1, -1);
       const parsed = lines.map(line => {
         const match = line.match(/^\d+\.\s*(.+?):\s*(.+)/);
         if (match) {

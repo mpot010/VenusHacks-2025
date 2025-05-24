@@ -4,12 +4,11 @@ import requests
 from datetime import datetime
 from openai import OpenAI
 import os
-
-
+import json
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="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"
+    api_key="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"
 )
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -62,41 +61,84 @@ def save_profile():
     print("Received:", data)
     return jsonify({'status': 'success'}) 
 
+
+LOOKS_FILE = 'saved_looks.json'
+
+@app.route('/save-look', methods=['POST'])
+def save_look():
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'Invalid data'}), 400
+
+    # Load existing
+    if os.path.exists(LOOKS_FILE):
+        with open(LOOKS_FILE, 'r') as f:
+            saved_looks = json.load(f)
+    else:
+        saved_looks = []
+
+    # Add new look
+    saved_looks.append(data)
+
+    # Save back to file
+    with open(LOOKS_FILE, 'w') as f:
+        json.dump(saved_looks, f)
+
+    return jsonify({'message': 'Look saved successfully!'}), 200
+
+
+@app.route('/get-looks', methods=['GET'])
+def get_looks():
+    if not os.path.exists(LOOKS_FILE):
+        return jsonify([])
+    with open(LOOKS_FILE, 'r') as f:
+        looks = json.load(f)
+    return jsonify(looks)
+
 @app.route('/generate-look', methods=['POST'])
 def generate_look():
     try:
         data = request.get_json()
         print("Received look request:", data)
+
+        # Extract profile info, products, etc., as needed
         location = data.get('location')
         date = data.get('date')
+        skin_conditions = data.get('skinConditions', [])
+        allergies = data.get('allergies', [])
+        preferred_brands = data.get('preferredBrands', [])
+        occasions = data.get('occasions', [])
+        budget = data.get('budget', [])
+
+        # Call weather API to get the relevant weather data
         weather_data = get_weather_for_datetime(location, date)
         if not weather_data:
             return jsonify({'status': 'error', 'message': 'Weather data unavailable'}), 400
+
+        # Construct prompt excluding selected products (if needed)
         prompt = f"""
-You are a beauty assistant. Based on the following user profile, suggest a personalized makeup/skincare routine that is suitable for the occasion and weather.
+        Recommend a 8 step routine using budget-appropriate products with name and descriptions, avoiding allergens, based on the provided profile and weather information.
+        
+        User Profile:
+        - Skin Conditions: {', '.join(skin_conditions)}
+        - Allergies: {', '.join(allergies)}
+        - Preferred Brands: {', '.join(preferred_brands)}
+        - Occasion: {', '.join(occasions)}
+        - Budget: {', '.join(budget)}
+        - Location: {location}
+        - Date: {date}
 
-User Profile:
-- Skin Conditions: {', '.join(data.get('skinConditions', []))}
-- Allergies: {', '.join(data.get('allergies', []))}
-- Preferred Brands: {data.get('preferredBrands', 'N/A')}
-- Occasion: {', '.join(data.get('occasions', []))}
-- Budget: {', '.join(data.get('budget', []))}
-- Location: {location}
-- Date: {date}
+        Weather Forecast:
+        - Temperature: {weather_data['Temperature']}
+        - Humidity: {weather_data['Humidity']}
+        - Condition: {weather_data['Condition']}
+        - Cloudiness: {weather_data['Cloudiness']}
+        - Sun Level: {weather_data['Sun Level']}
+        - Chance of Precipitation: {weather_data['Chance of Precipitation']}
 
-Weather Forecast:
-- Temperature: {weather_data['Temperature']}
-- Humidity: {weather_data['Humidity']}
-- Condition: {weather_data['Condition']}
-- Cloudiness: {weather_data['Cloudiness']}
-- Sun Level: {weather_data['Sun Level']}
-- Chance of Precipitation: {weather_data['Chance of Precipitation']}
+        Based on this, recommend a new set of products.
+        """.strip()
 
-Recommend a 8 step routine using budget-appropriate products with name and descriptions, avoiding allergens. Make the tone friendly and professional. Try to include preferred brands but it should not include only them.
-The format should be Product: Product Description - Instructions"
-""".strip()
-
-        print("Generated Prompt:\n", prompt)
         ai_response = client.chat.completions.create(
             model="mistralai/mistral-7b-instruct",
             messages=[
@@ -106,20 +148,15 @@ The format should be Product: Product Description - Instructions"
             temperature=0.8
         )
 
-
         generated_text = ai_response.choices[0].message.content
-        print(generated_text)
         return jsonify({'status': 'success', 'recommendation': generated_text})
-
 
     except Exception as e:
         print("Error in generate-look:", e)
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+
      
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port = 5001)
-
-
-
