@@ -44,7 +44,7 @@ function Welcome() {
         className="form-container"
         autoComplete="off"
       >
-        <h1 className="form-title">Welcome to LookBook!</h1>
+        <h1 className="form-title">Welcome to LookBook</h1>
 
         <label className="form-label" htmlFor="name">Name</label>
         <input 
