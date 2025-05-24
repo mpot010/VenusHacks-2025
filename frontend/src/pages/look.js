@@ -11,7 +11,8 @@ function Look() {
     occasions: [],
     budget: [],
     location: '',
-    date: ''
+    date: '',
+    otherOccasion: ''
   });
 
   useEffect(() => {
@@ -28,7 +29,15 @@ function Look() {
     setProfile(prev => {
       const selected = new Set(prev[category] || []);
       selected.has(value) ? selected.delete(value) : selected.add(value);
-      return { ...prev, [category]: [...selected] };
+
+      const updated = { ...prev, [category]: [...selected] };
+
+      // Clear otherOccasion if "other" is deselected
+      if (category === 'occasions' && !selected.has('other')) {
+        updated.otherOccasion = '';
+      }
+
+      return updated;
     });
   };
 
@@ -40,8 +49,16 @@ function Look() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const saved = JSON.parse(localStorage.getItem('glamProfile')) || {};
-    const combinedProfile = { ...saved, ...profile };
-  
+    let combinedProfile = { ...saved, ...profile };
+
+    // Replace 'other' with the actual entered occasion
+    if (profile.occasions.includes('other') && profile.otherOccasion.trim()) {
+      combinedProfile.occasions = [
+        ...profile.occasions.filter(o => o !== 'other'),
+        profile.otherOccasion.trim()
+      ];
+    }
+
     try {
       const response = await fetch('http://localhost:5001/generate-look', {
         method: 'POST',
@@ -50,9 +67,9 @@ function Look() {
         },
         body: JSON.stringify(combinedProfile)
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok && result.status === 'success') {
         localStorage.setItem('recommendation', result.recommendation);
         navigate('/routine');
@@ -64,7 +81,6 @@ function Look() {
       alert('Server error. Please try again.');
     }
   };
-  
 
   const styles = {
     container: {
@@ -127,6 +143,18 @@ function Look() {
       cursor: 'pointer',
       fontWeight: 'bold',
       border: 'none'
+    },
+    optionsRow: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '0.75rem',
+      alignItems: 'flex-start',
+      marginTop: '0.5rem'
+    },
+    optionItem: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
     }
   };
 
@@ -138,19 +166,32 @@ function Look() {
 
       <div style={styles.section}>
         <label style={styles.label}>What occasion is your look for?</label>
-        {occasionOptions.map(option => (
-          <button
-            type="button"
-            key={option}
-            style={{
-              ...styles.button,
-              ...(profile.occasions && profile.occasions.includes(option) ? styles.buttonActive : {})
-            }}
-            onClick={() => toggleOption('occasions', option)}
-          >
-            {option}
-          </button>
-        ))}
+        <div style={styles.optionsRow}>
+          {occasionOptions.map(option => (
+            <div key={option} style={styles.optionItem}>
+              <button
+                type="button"
+                style={{
+                  ...styles.button,
+                  ...(profile.occasions.includes(option) ? styles.buttonActive : {})
+                }}
+                onClick={() => toggleOption('occasions', option)}
+              >
+                {option}
+              </button>
+              {option === 'other' && profile.occasions.includes('other') && (
+                <textarea
+                  name="otherOccasion"
+                  value={profile.otherOccasion}
+                  onChange={handleChange}
+                  style={styles.input}
+                  placeholder="Please describe the occasion"
+                  rows={2}
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={styles.section}>
@@ -184,7 +225,7 @@ function Look() {
             key={option}
             style={{
               ...styles.button,
-              ...(profile.budget && profile.budget.includes(option) ? styles.buttonActive : {})
+              ...(profile.budget.includes(option) ? styles.buttonActive : {})
             }}
             onClick={() => toggleOption('budget', option)}
           >
@@ -194,10 +235,9 @@ function Look() {
       </div>
 
       <button type="submit" style={styles.submit}>
-        {localStorage.getItem('glamProfile') ? 'Generate Look' : 'Generate Look'}
+        Generate Look
       </button>
 
-      {/* Additional Navigation Buttons */}
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <button
           type="button"

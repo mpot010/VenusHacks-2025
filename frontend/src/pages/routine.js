@@ -9,22 +9,20 @@ function Routine() {
   useEffect(() => {
     const saved = localStorage.getItem('recommendation');
     if (saved) {
-      const allLines = saved.split('\n').filter(Boolean);
-      const lines = allLines.slice(1, -1);
-      const parsed = lines.map(line => {
-        const match = line.match(/^\d+\.\s*(.+?):\s*(.+)/);
-        if (match) {
+      const lines = saved.split('\n').filter(Boolean);
+      const parsed = lines.map((line) => {
+        const clean = str => str.replace(/^\*+|\*+$/g, '').trim();
+        const fullMatch = line.match(/^\s*\d+\.\s*\*?(.+?)\*?\s*:\s*(.+)/);
+        if (fullMatch) {
           return {
-            name: match[1].trim(),
-            description: match[2].trim()
-          };
-        } else {
-          return {
-            name: 'Step',
-            description: line
+            name: clean(fullMatch[1]),
+            description: fullMatch[2].trim()
           };
         }
-      });
+        return null;
+      }).filter(Boolean); 
+      
+      
       setRoutineSteps(parsed);
     }
   }, []);
@@ -47,11 +45,28 @@ function Routine() {
 
   const handleSaveLook = () => {
     const likedProducts = routineSteps.filter(product => !selectedProducts.includes(product.name));
-    localStorage.setItem('savedLook', JSON.stringify(likedProducts));
-    alert('Your look has been saved!');
-    navigate('/dashboard'); 
+  
+    const lookData = {
+      title: "My Saved Look",
+      occasion: "Custom",
+      timestamp: new Date().toISOString(),
+      products: likedProducts
+    };
+  
+    fetch('http://localhost:5000/save-look', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lookData)
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to save look.');
+        alert('Your look has been saved!');
+        navigate('/dashboard');
+      })
+      .catch(error => {
+        alert('Error saving look: ' + error.message);
+      });
   };
-
 
   const handleLikeThisLook = () => {
     setHasLikedLook(true);
