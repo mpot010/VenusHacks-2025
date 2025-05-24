@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 
 function Routine() {
-  const makeupProducts = [
-    { name: 'Concealer', description: 'Helps cover blemishes and dark circles.', imgSrc: '/images/concealer.png' },
-    { name: 'Foundation', description: 'Provides an even base for makeup.', imgSrc: '/images/foundation.png' },
-    { name: 'Blush', description: 'Adds a flush of color to your cheeks.', imgSrc: '/images/blush.png' },
-    { name: 'Highlighter', description: 'Gives your skin a glowing finish.', imgSrc: '/images/highlighter.png' },
-    { name: 'Contour', description: 'Shapes and defines your facial features.', imgSrc: '/images/contour.png' },
-    { name: 'Eyeshadow', description: 'Adds color and depth to your eyelids.', imgSrc: '/images/eyeshadow.png' },
-    { name: 'Mascara', description: 'Enhances the volume and length of your eyelashes.', imgSrc: '/images/mascara.png' },
-    { name: 'Lipstick', description: 'Adds color to your lips.', imgSrc: '/images/lipstick.png' },
-    { name: 'Setting Spray', description: 'Helps to lock in your makeup all day.', imgSrc: '/images/setting-spray.png' },
-    { name: 'Primer', description: 'Preps your skin for smooth makeup application.', imgSrc: '/images/primer.png' }
-  ];
-
+    const [routineSteps, setRoutineSteps] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [hasLikedLook, setHasLikedLook] = useState(false);
+  const navigate = useNavigate(); 
+  useEffect(() => {
+    const saved = localStorage.getItem('recommendation');
+    if (saved) {
+      const lines = saved.split('\n').filter(Boolean);
+      const parsed = lines.map(line => {
+        const match = line.match(/^\d+\.\s*(.+?):\s*(.+)/);
+        if (match) {
+          return {
+            name: match[1].trim(),
+            description: match[2].trim()
+          };
+        } else {
+          return {
+            name: 'Step',
+            description: line
+          };
+        }
+      });
+      setRoutineSteps(parsed);
+    }
+  }, []);
+  
 
   const handleToggle = (product) => {
     setSelectedProducts(prevState => {
@@ -27,11 +40,20 @@ function Routine() {
   };
 
   const handleRegenerate = () => {
+    setSelectedProducts([]);
+    setHasLikedLook(false);
   };
 
+  const handleSaveLook = () => {
+    const likedProducts = routineSteps.filter(product => !selectedProducts.includes(product.name));
+    localStorage.setItem('savedLook', JSON.stringify(likedProducts));
+    alert('Your look has been saved!');
+    navigate('/dashboard'); 
+  };
+
+
   const handleLikeThisLook = () => {
-    localStorage.setItem('selectedLook', JSON.stringify(selectedProducts));
-    alert('You liked this look!');
+    setHasLikedLook(true);
   };
 
   const styles = {
@@ -108,6 +130,13 @@ function Routine() {
       height: '100px',
       objectFit: 'contain',
       marginBottom: '10px'
+    },
+    instructions: {
+      textAlign: 'center',
+      fontSize: '1.2rem',
+      marginBottom: '20px',
+      fontWeight: '500',
+      color: '#5a3e49'
     }
   };
 
@@ -115,42 +144,74 @@ function Routine() {
     <div style={styles.container}>
       <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Your Makeup Routine</h2>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
-        {makeupProducts.map((product) => (
-          <div
-            key={product.name}
-            style={{
-              ...styles.productBox,
-              ...(selectedProducts.includes(product.name) ? styles.productBoxActive : {})
-            }}
-            onClick={() => handleToggle(product.name)}
-          >
-            <img
-              src={product.imgSrc}
-              alt={product.name}
-              style={styles.productImage}
-            />
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <input
-              type="checkbox"
-              checked={selectedProducts.includes(product.name)}
-              onChange={() => handleToggle(product.name)}
-              style={{ marginTop: '10px' }}
-            />
-          </div>
-        ))}
-      </div>
+      {/* Instructions before liking the look */}
+      {!hasLikedLook && (
+        <div style={styles.instructions}>
+          <p>Select the products you like by checking the boxes. Once you're done, click "I Like This Look" to save your choices!</p>
+        </div>
+      )}
+
+      {/* Displaying all products before the user likes the look */}
+      {!hasLikedLook ? (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+          {routineSteps.map((product) => (
+            <div
+              key={product.name}
+              style={{
+                ...styles.productBox,
+                ...(selectedProducts.includes(product.name) ? styles.productBoxActive : {})
+              }}
+              onClick={() => handleToggle(product.name)}
+            >
+              <img
+                src={product.imgSrc}
+                alt={product.name}
+                style={styles.productImage}
+              />
+              <h3>{product.name}</h3>
+              <p>{product.description}</p>
+              <input
+                type="checkbox"
+                checked={selectedProducts.includes(product.name)}
+                onChange={() => handleToggle(product.name)}
+                style={{ marginTop: '10px' }}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+          {routineSteps
+            .filter(product => !selectedProducts.includes(product.name)) 
+            .map((product) => (
+              <div key={product.name} style={styles.productBox}>
+                <img
+                  src={product.imgSrc}
+                  alt={product.name}
+                  style={styles.productImage}
+                />
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+              </div>
+            ))}
+        </div>
+      )}
 
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-        <button
-          type="button"
-          style={{ ...styles.button, ...styles.submit }}
-          onClick={handleLikeThisLook}
-        >
-          I Like This Look
-        </button>
+        {/* Show "Save Look" and "Regenerate" buttons only after liking the look */}
+        {hasLikedLook && (
+          <>
+            <button
+              type="button"
+              style={{ ...styles.button, ...styles.submit }}
+              onClick={handleSaveLook}
+            >
+              Save Look
+            </button>
+          </>
+        )}
 
+        {/* Regenerate button always visible */}
         <button
           type="button"
           style={{ ...styles.button, ...styles.submit, marginLeft: '10px' }}
@@ -158,9 +219,21 @@ function Routine() {
         >
           Regenerate
         </button>
+
+        {!hasLikedLook && (
+          <button
+            type="button"
+            style={{ ...styles.button, ...styles.submit, marginLeft: '10px' }}
+            onClick={handleLikeThisLook}
+          >
+            I Like This Look
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
 export default Routine;
+
+
