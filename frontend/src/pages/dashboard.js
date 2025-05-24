@@ -6,7 +6,7 @@ function Dashboard() {
   const savedLooks = JSON.parse(localStorage.getItem('savedLooks')) || [];
 
   const handleCreateLook = () => {
-    navigate('/create-look');
+    navigate('/look');
   };
 
   const handleEditProfile = () => {

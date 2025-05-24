@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Create() {
   const navigate = useNavigate();
@@ -7,12 +8,13 @@ function Create() {
   const skinOptions = ['rosacea', 'acne', 'eczema', 'dry skin', 'other', 'none'];
   const allergyOptions = ['parabens', 'synthetic dyes', 'tea tree', 'metals', 'other', 'none'];
 
-  // ✅ Load saved profile if available
   const [profile, setProfile] = useState({
     skinConditions: [],
     allergies: [],
     ownedProducts: '',
-    preferredBrands: ''
+    preferredBrands: '',
+    otherSkinCondition: '',
+    otherAllergy: ''
   });
 
   useEffect(() => {
@@ -26,7 +28,15 @@ function Create() {
     setProfile(prev => {
       const selected = new Set(prev[category]);
       selected.has(value) ? selected.delete(value) : selected.add(value);
-      return { ...prev, [category]: [...selected] };
+
+      const updated = { ...prev, [category]: [...selected] };
+
+      if (value === 'other' && !selected.has('other')) {
+        if (category === 'skinConditions') updated.otherSkinCondition = '';
+        if (category === 'allergies') updated.otherAllergy = '';
+      }
+
+      return updated;
     });
   };
 
@@ -35,10 +45,20 @@ function Create() {
     setProfile(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem('glamProfile', JSON.stringify(profile));
-    navigate('/dashboard');
+    try {
+      const response = await axios.post('http://localhost:5001/save-profile', profile);
+      if (response.status === 200) {
+        localStorage.setItem('glamProfile', JSON.stringify(profile));
+        navigate('/dashboard');
+      } else {
+        alert('Failed to save profile. Please try again.');
+      }
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      alert('Server error. Please try again.');
+    }
   };
 
   const styles = {
@@ -62,7 +82,7 @@ function Create() {
     },
     button: {
       padding: '10px 16px',
-      margin: '6px',
+      margin: '4px',
       borderRadius: '20px',
       border: '1px solid #ffb6c1',
       backgroundColor: '#fff',
@@ -76,12 +96,12 @@ function Create() {
       border: '1px solid #ff6fa3'
     },
     input: {
-      width: '100%',
-      padding: '10px',
+      width: '150px',
+      padding: '8px',
       borderRadius: '8px',
       border: '1px solid #ccc',
-      marginTop: '0.5rem',
-      fontSize: '1rem'
+      marginTop: '0.25rem',
+      fontSize: '0.9rem'
     },
     submit: {
       marginTop: '1.5rem',
@@ -93,47 +113,85 @@ function Create() {
       color: '#fff',
       cursor: 'pointer',
       fontWeight: 'bold'
+    },
+    optionsRow: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '0.75rem',
+      alignItems: 'flex-start',
+      marginTop: '0.5rem'
+    },
+    optionItem: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
     }
   };
 
   return (
     <form style={styles.container} onSubmit={handleSubmit}>
       <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-        {localStorage.getItem('glamProfile') ? 'Edit Your Glam Profile' : 'Create Your Glam Profile'}
+        {localStorage.getItem('glamProfile') ? 'Edit Your Profile' : 'Create Your Profile'}
       </h2>
 
       <div style={styles.section}>
         <label style={styles.label}>What best describes your skin?</label>
-        {skinOptions.map(option => (
-          <button
-            type="button"
-            key={option}
-            style={{
-              ...styles.button,
-              ...(profile.skinConditions.includes(option) ? styles.buttonActive : {})
-            }}
-            onClick={() => toggleOption('skinConditions', option)}
-          >
-            {option}
-          </button>
-        ))}
+        <div style={styles.optionsRow}>
+          {skinOptions.map(option => (
+            <div key={option} style={styles.optionItem}>
+              <button
+                type="button"
+                style={{
+                  ...styles.button,
+                  ...(profile.skinConditions.includes(option) ? styles.buttonActive : {})
+                }}
+                onClick={() => toggleOption('skinConditions', option)}
+              >
+                {option}
+              </button>
+              {option === 'other' && profile.skinConditions.includes('other') && (
+                <textarea
+                  name="otherSkinCondition"
+                  value={profile.otherSkinCondition}
+                  onChange={handleChange}
+                  style={styles.input}
+                  placeholder="Other skin condition"
+                  rows={2}
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={styles.section}>
         <label style={styles.label}>Do you have any known allergies?</label>
-        {allergyOptions.map(option => (
-          <button
-            type="button"
-            key={option}
-            style={{
-              ...styles.button,
-              ...(profile.allergies.includes(option) ? styles.buttonActive : {})
-            }}
-            onClick={() => toggleOption('allergies', option)}
-          >
-            {option}
-          </button>
-        ))}
+        <div style={styles.optionsRow}>
+          {allergyOptions.map(option => (
+            <div key={option} style={styles.optionItem}>
+              <button
+                type="button"
+                style={{
+                  ...styles.button,
+                  ...(profile.allergies.includes(option) ? styles.buttonActive : {})
+                }}
+                onClick={() => toggleOption('allergies', option)}
+              >
+                {option}
+              </button>
+              {option === 'other' && profile.allergies.includes('other') && (
+                <textarea
+                  name="otherAllergy"
+                  value={profile.otherAllergy}
+                  onChange={handleChange}
+                  style={styles.input}
+                  placeholder="Other allergy"
+                  rows={2}
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={styles.section}>
@@ -142,7 +200,7 @@ function Create() {
           name="ownedProducts"
           value={profile.ownedProducts}
           onChange={handleChange}
-          style={styles.input}
+          style={{ ...styles.input, width: '100%' }}
           placeholder="List your products, separated by commas"
           rows={3}
         />
@@ -154,7 +212,7 @@ function Create() {
           name="preferredBrands"
           value={profile.preferredBrands}
           onChange={handleChange}
-          style={styles.input}
+          style={{ ...styles.input, width: '100%' }}
           placeholder="List brands you like (e.g. e.l.f., Fenty, etc.)"
           rows={2}
         />
