@@ -3,43 +3,31 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
+
   const navigate = useNavigate();
   const [savedLooks, setSavedLooks] = useState([]);
 
-  useEffect(() => {
-    const fetchLooks = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/get-looks');
-        const data = await response.json();
-        setSavedLooks(data);
-      } catch (err) {
-        console.error('Failed to fetch saved looks:', err);
-      }
-    };
-
-    fetchLooks();
-  }, []);
-  {savedLooks.map((look, idx) => (
-    <div key={idx} style={styles.card}>
-      <div>
-        <strong>{look.title || `Look ${idx + 1}`}</strong>
-        <p style={{ marginTop: '0.5rem' }}>{look.occasion}</p>
-      </div>
-      <p style={{ fontSize: '0.8rem', color: '#888' }}>
-        {new Date(look.timestamp).toLocaleDateString()}
-      </p>
-      {/* Optional: show product names */}
-      <ul style={{ fontSize: '0.75rem', color: '#aaa', marginTop: '0.5rem' }}>
-        {look.products && look.products.map((prod, i) => (
-          <li key={i}>{prod.name}</li>
-        ))}
-      </ul>
-    </div>
-  ))}
+  const productNameFromLine = (line) => {
+    const colonIndex = line.indexOf(':');
+    if (colonIndex === -1) return '';
   
-  const handleCreateLook = () => navigate('/look');
-  const handleEditProfile = () => navigate('/create');
-
+    // Get the text after colon (description + instructions)
+    const afterColon = line.slice(colonIndex + 1).trim();
+  
+    // The product name is usually before the first ' - ' (dash with spaces)
+    const dashIndex = afterColon.indexOf(' - ');
+    if (dashIndex !== -1) {
+      return afterColon.slice(0, dashIndex).trim()
+    }
+  
+    // fallback to whole afterColon if no dash found
+    return afterColon;
+  };
+  
+  function capitalizeFirstLetter(str) {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   const styles = {
     container: {
       padding: '2rem',
@@ -56,8 +44,9 @@ function Dashboard() {
     title: {
       fontSize: '1.8rem',
       fontWeight: '600',
-      color: '#d63384'
+      color: '#d63384',
     },
+
     button: {
       padding: '10px 18px',
       fontSize: '1rem',
@@ -71,13 +60,14 @@ function Dashboard() {
     },
     grid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-      gap: '1.5rem',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+      gap: '1rem',
       justifyItems: 'center'
     },
     card: {
-      width: '150px',
-      height: '220px',
+      boxSizing: 'border-box',
+      width: '220px',
+      height: '300px',
       background: '#fff',
       borderRadius: '12px',
       padding: '1rem',
@@ -92,8 +82,8 @@ function Dashboard() {
       transition: 'transform 0.2s ease',
     },
     plusCard: {
-      width: '150px',
-      height: '220px',
+      width: '220px',
+      height: '300px',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -106,6 +96,44 @@ function Dashboard() {
       boxShadow: '0 8px 16px rgba(255, 111, 163, 0.4)'
     }
   };
+  useEffect(() => {
+    const fetchLooks = async () => {
+      try {
+        const response = await fetch('http://localhost:5001/get-looks');
+        const data = await response.json();
+        setSavedLooks(data);
+      } catch (err) {
+        console.error('Failed to fetch saved looks:', err);
+      }
+    };
+
+    fetchLooks();
+  }, []);
+  
+  const handleCreateLook = () => navigate('/look');
+  const handleEditProfile = () => navigate('/create');
+  
+  const handleDelete = async (index) => {
+    if (!window.confirm('Are you sure you want to delete this look?')) return;
+  
+    try {
+      const response = await fetch('http://localhost:5001/delete-look', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ index })
+      });
+  
+      if (response.ok) {
+        const updatedLooks = savedLooks.filter((_, i) => i !== index);
+        setSavedLooks(updatedLooks);
+      } else {
+        alert('Failed to delete look.');
+      }
+    } catch (err) {
+      console.error('Error deleting look:', err);
+      alert('Error deleting look.');
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -115,33 +143,79 @@ function Dashboard() {
           Edit Profile
         </button>
       </div>
-
+  
       <div style={styles.grid}>
-        {savedLooks.map((look, idx) => (
-          <div key={idx} style={styles.card}>
-            <div>
-              <strong>{look.title || `Look ${idx + 1}`}</strong>
-              <p style={{ marginTop: '0.5rem' }}>{look.occasion}</p>
-            </div>
-            <p style={{ fontSize: '0.8rem', color: '#888' }}>
-              {new Date(look.timestamp).toLocaleDateString()}
-            </p>
+      {savedLooks.map((look, index) => {
+  const lines = look.recommendation ? look.recommendation.split('\n').filter(line => line.trim() !== '') : [];
+
+  const productNames = lines.map(line => productNameFromLine(line));
+
+  return (
+    <div key={index} style={{ ...styles.card }}>
+      <div style={{
+        textAlign: 'center',
+        fontFamily: "'Roboto', sans-serif",
+        fontSize: '1.2rem',
+        fontWeight: 'bold',
+        marginBottom: '0.5rem'
+      }}>
+        {(look.location?.trim() && look.occasions?.length > 0 && look.occasions[0].trim())
+          ? `${capitalizeFirstLetter(look.location.trim())} ${capitalizeFirstLetter(look.occasions[0].trim())}`
+          : 'Unknown'}
+      </div>
+
+      <div style={{
+        fontSize: '0.9rem',
+        color: '#555',
+        marginTop: '0.5rem',
+        whiteSpace: 'normal',
+        overflowWrap: 'break-word',
+        maxHeight: '180px',
+        overflowY: 'auto',
+      }}>
+        {productNames.map((name, i) => (
+          <div key={i} style={{ marginBottom: '6px' }}>
+            • {name}
           </div>
         ))}
+      </div>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleDelete(index);
+        }}
+        style={{
+          marginTop: '10px',
+          fontSize: '0.8rem',
+          backgroundColor: '#f8d7da',
+          color: '#721c24',
+          border: 'none',
+          borderRadius: '6px',
+          padding: '4px 8px',
+          cursor: 'pointer'
+        }}
+      >
+        Delete
+      </button>
+    </div>
+  );
+})}
 
 
-        {/* Always show this at the end */}
+        {/* Add new look button */}
         <div
           style={styles.plusCard}
           onClick={handleCreateLook}
-          onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-          onMouseLeave={e => e.currentTarget.style.transform = 'scale(1.0)'}
+          onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
+          onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1.0)')}
         >
           +
         </div>
       </div>
     </div>
   );
+  
 }
 
 export default Dashboard;

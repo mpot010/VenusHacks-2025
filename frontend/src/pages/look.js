@@ -6,7 +6,7 @@ function Look() {
 
   const occasionOptions = ['wedding', 'beach', 'hangout', 'meeting', 'other', 'none'];
   const budgetOptions = ['under $50', '$50 to $75', '$75 to $100', '$100 to $150', 'more than $150'];
-
+  const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState({
     occasions: [],
     budget: [],
@@ -48,17 +48,18 @@ function Look() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+  
     const saved = JSON.parse(localStorage.getItem('glamProfile')) || {};
     let combinedProfile = { ...saved, ...profile };
-
-    // Replace 'other' with the actual entered occasion
+  
     if (profile.occasions.includes('other') && profile.otherOccasion.trim()) {
       combinedProfile.occasions = [
         ...profile.occasions.filter(o => o !== 'other'),
         profile.otherOccasion.trim()
       ];
     }
-
+  
     try {
       const response = await fetch('http://localhost:5001/generate-look', {
         method: 'POST',
@@ -67,10 +68,26 @@ function Look() {
         },
         body: JSON.stringify(combinedProfile)
       });
-
+  
       const result = await response.json();
-
+  
       if (response.ok && result.status === 'success') {
+        const lookToSave = {
+          date: profile.date,
+          location: profile.location,
+          occasions: combinedProfile.occasions,
+          recommendation: result.recommendation,
+          products: result.products,
+        };
+  
+        await fetch('http://localhost:5001/save-look', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(lookToSave),
+        });
+  
         localStorage.setItem('recommendation', result.recommendation);
         navigate('/routine');
       } else {
@@ -79,10 +96,23 @@ function Look() {
     } catch (err) {
       console.error("Error calling backend:", err);
       alert('Server error. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
+  
+
 
   const styles = {
+    spinner: {
+      width: '30px',
+      height: '16px',
+      border: '1px solid #fff',
+      borderTop: '1px solid #ff6fa3',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite',
+      marginLeft: '10px'
+    },
     container: {
       maxWidth: '600px',
       margin: '2rem auto',
@@ -159,102 +189,106 @@ function Look() {
   };
 
   return (
-    <form style={styles.container} onSubmit={handleSubmit}>
-      <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-        {localStorage.getItem('glamProfile') ? 'Create Your Look' : 'Create Your Look'}
-      </h2>
+    <>
+      <form style={styles.container} onSubmit={handleSubmit}>
+        <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          {localStorage.getItem('glamProfile') ? 'Create Your Look' : 'Create Your Look'}
+        </h2>
 
-      <div style={styles.section}>
-        <label style={styles.label}>What occasion is your look for?</label>
-        <div style={styles.optionsRow}>
-          {occasionOptions.map(option => (
-            <div key={option} style={styles.optionItem}>
-              <button
-                type="button"
-                style={{
-                  ...styles.button,
-                  ...(profile.occasions.includes(option) ? styles.buttonActive : {})
-                }}
-                onClick={() => toggleOption('occasions', option)}
-              >
-                {option}
-              </button>
-              {option === 'other' && profile.occasions.includes('other') && (
-                <textarea
-                  name="otherOccasion"
-                  value={profile.otherOccasion}
-                  onChange={handleChange}
-                  style={styles.input}
-                  placeholder="Please describe the occasion"
-                  rows={2}
-                />
-              )}
-            </div>
+        <div style={styles.section}>
+          <label style={styles.label}>What occasion is your look for?</label>
+          <div style={styles.optionsRow}>
+            {occasionOptions.map(option => (
+              <div key={option} style={styles.optionItem}>
+                <button
+                  type="button"
+                  style={{
+                    ...styles.button,
+                    ...(profile.occasions.includes(option) ? styles.buttonActive : {})
+                  }}
+                  onClick={() => toggleOption('occasions', option)}
+                >
+                  {option}
+                </button>
+                {option === 'other' && profile.occasions.includes('other') && (
+                  <textarea
+                    name="otherOccasion"
+                    value={profile.otherOccasion}
+                    onChange={handleChange}
+                    style={styles.input}
+                    placeholder="Please describe the occasion"
+                    rows={2}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={styles.section}>
+          <label style={styles.label}>Location</label>
+          <input
+            type="text"
+            name="location"
+            value={profile.location}
+            onChange={handleChange}
+            style={styles.input}
+            placeholder="Enter the location"
+          />
+        </div>
+
+        <div style={styles.section}>
+          <label style={styles.label}>Date</label>
+          <input
+            type="date"
+            name="date"
+            value={profile.date}
+            onChange={handleChange}
+            style={styles.input}
+          />
+        </div>
+
+        <div style={styles.section}>
+          <label style={styles.label}>What is your budget?</label>
+          {budgetOptions.map(option => (
+            <button
+              type="button"
+              key={option}
+              style={{
+                ...styles.button,
+                ...(profile.budget.includes(option) ? styles.buttonActive : {})
+              }}
+              onClick={() => toggleOption('budget', option)}
+            >
+              {option}
+            </button>
           ))}
         </div>
-      </div>
 
-      <div style={styles.section}>
-        <label style={styles.label}>Location</label>
-        <input
-          type="text"
-          name="location"
-          value={profile.location}
-          onChange={handleChange}
-          style={styles.input}
-          placeholder="Enter the location"
-        />
-      </div>
+        <button type="submit" style={styles.submit} disabled={loading}>
+          Generate Look
+          {loading && <span style={styles.spinner}></span>}
+        </button>
 
-      <div style={styles.section}>
-        <label style={styles.label}>Date</label>
-        <input
-          type="date"
-          name="date"
-          value={profile.date}
-          onChange={handleChange}
-          style={styles.input}
-        />
-      </div>
 
-      <div style={styles.section}>
-        <label style={styles.label}>What is your budget?</label>
-        {budgetOptions.map(option => (
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <button
             type="button"
-            key={option}
-            style={{
-              ...styles.button,
-              ...(profile.budget.includes(option) ? styles.buttonActive : {})
-            }}
-            onClick={() => toggleOption('budget', option)}
+            onClick={() => navigate('/create')}
+            style={{ ...styles.navButton, backgroundColor: '#dcdcdc', color: '#444' }}
           >
-            {option}
+            Edit Profile
           </button>
-        ))}
-      </div>
-
-      <button type="submit" style={styles.submit}>
-        Generate Look
-      </button>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <button
-          type="button"
-          onClick={() => navigate('/create')}
-          style={{ ...styles.navButton, backgroundColor: '#dcdcdc', color: '#444' }}
-        >
-          Edit Profile
-        </button>
-        <button
-          type="button"
-          onClick={() => navigate('/dashboard')}
-          style={{ ...styles.navButton, backgroundColor: '#f4f4f4', color: '#333' }}
-        >
-          Back to Looks
-        </button>
-      </div>
-    </form>
+          <button
+            type="button"
+            onClick={() => navigate('/dashboard')}
+            style={{ ...styles.navButton, backgroundColor: '#f4f4f4', color: '#333' }}
+          >
+            Back to Looks
+          </button>
+        </div>
+      </form>
+    </>
   );
 }
 

@@ -2,9 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 
 function Routine() {
-    const [routineSteps, setRoutineSteps] = useState([]);
+  const [routineSteps, setRoutineSteps] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [hasLikedLook, setHasLikedLook] = useState(false);
+  const keywordImages = {
+    lip: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.08.44%20PM.png?updatedAt=1748125013304',
+    eyelin: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.21.14%20PM.png?updatedAt=1748125280909',
+    serum: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.14.22%20PM.png?updatedAt=1748125048225',
+    foundation: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.27%20PM.png?updatedAt=1748125112139',
+    mascara: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.22.41%20PM.png?updatedAt=1748125368167',
+    concealer: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.51%20PM.png?updatedAt=1748125138640',
+    blush: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.19.42%20PM.png?updatedAt=1748125189916',
+    contour: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.20.33%20PM.png?updatedAt=1748125238098',
+    bronzer: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.20.33%20PM.png?updatedAt=1748125238098',
+    brow: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.22.01%20PM.png?updatedAt=1748125327535',
+    shadow: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.23.41%20PM.png?updatedAt=1748125426584',
+    moisturizer: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.24.02%20PM.png?updatedAt=1748125612583',
+    cream: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.09.46%20PM.png?updatedAt=1748128191990',
+    cleans:'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.23.09%20PM.png?updatedAt=1748128994672',
+    spray:'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.14.22%20PM.png?updatedAt=1748125048225',
+    mask:'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%205.04.08%20PM.png?updatedAt=1748131457009',
+    exfoliat:'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%205.04.08%20PM.png?updatedAt=1748131457009',
+    foundation: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.27%20PM.png?updatedAt=1748125112139',
+    treatment:'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.23.09%20PM.png?updatedAt=1748128994672',
+    sun: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.24.16%20PM.png?updatedAt=1748125612857',
+    spf: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.24.16%20PM.png?updatedAt=1748125612857',
+    prime: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.27.41%20PM.png?updatedAt=1748125667887',
+    powder: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.28.55%20PM.png?updatedAt=1748125741219',
+    toner: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.50.55%20PM.png?updatedAt=1748130665365',
+    highlight: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.04.48%20PM.png?updatedAt=1748127894642'
+  };
+  const getKeywordImage = (productName) => {
+    const entry = Object.entries(keywordImages).find(([keyword]) =>
+      productName.toLowerCase().includes(keyword)
+    );
+    return entry ? entry[1] : null;
+  };
   const navigate = useNavigate(); 
   useEffect(() => {
     const saved = localStorage.getItem('recommendation');
@@ -14,18 +47,20 @@ function Routine() {
         const clean = str => str.replace(/^\*+|\*+$/g, '').trim();
         const fullMatch = line.match(/^\s*\d+\.\s*\*?(.+?)\*?\s*:\s*(.+)/);
         if (fullMatch) {
+          const name = clean(fullMatch[1]);
           return {
-            name: clean(fullMatch[1]),
-            description: fullMatch[2].trim()
+            name,
+            description: fullMatch[2].trim(),
+            imgSrc: getKeywordImage(name) // <-- Add image here
           };
         }
         return null;
-      }).filter(Boolean); 
-      
-      
+      }).filter(Boolean);
+  
       setRoutineSteps(parsed);
     }
   }, []);
+  
   
 
   const handleToggle = (product) => {
@@ -44,7 +79,13 @@ function Routine() {
   };
 
   const handleSaveLook = () => {
-    const likedProducts = routineSteps.filter(product => !selectedProducts.includes(product.name));
+    const likedProducts = routineSteps
+      .filter(product => !selectedProducts.includes(product.name))
+      .map(product => ({
+        name: product.name,
+        description: product.description,
+        imgSrc: getKeywordImage(product.name)
+      }));
   
     const lookData = {
       title: "My Saved Look",
@@ -53,7 +94,7 @@ function Routine() {
       products: likedProducts
     };
   
-    fetch('http://localhost:5000/save-look', {
+    fetch('http://localhost:5001/save-look', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(lookData)
@@ -67,6 +108,7 @@ function Routine() {
         alert('Error saving look: ' + error.message);
       });
   };
+  
 
   const handleLikeThisLook = () => {
     setHasLikedLook(true);
@@ -170,30 +212,37 @@ function Routine() {
       {/* Displaying all products before the user likes the look */}
       {!hasLikedLook ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
-          {routineSteps.map((product) => (
-            <div
-              key={product.name}
-              style={{
-                ...styles.productBox,
-                ...(selectedProducts.includes(product.name) ? styles.productBoxActive : {})
-              }}
-              onClick={() => handleToggle(product.name)}
-            >
-              <img
-                src={product.imgSrc}
-                alt={product.name}
-                style={styles.productImage}
-              />
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <input
-                type="checkbox"
-                checked={selectedProducts.includes(product.name)}
-                onChange={() => handleToggle(product.name)}
-                style={{ marginTop: '10px' }}
-              />
-            </div>
-          ))}
+          {routineSteps.map((product) => {
+
+  return (
+    <div
+      key={product.name}
+      style={{
+        ...styles.productBox,
+        ...(selectedProducts.includes(product.name) ? styles.productBoxActive : {})
+      }}
+      onClick={() => handleToggle(product.name)}
+    >
+      {/* Only show image if it matches the keyword */}
+      { product.imgSrc && (
+      <img
+        src={product.imgSrc}
+        alt={product.name}
+        style={styles.productImage}
+      />
+)}
+      <h3>{product.name}</h3>
+      <p>{product.description}</p>
+      <input
+        type="checkbox"
+        checked={selectedProducts.includes(product.name)}
+        onChange={() => handleToggle(product.name)}
+        style={{ marginTop: '10px' }}
+      />
+    </div>
+  );
+})}
+
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
@@ -201,11 +250,13 @@ function Routine() {
             .filter(product => !selectedProducts.includes(product.name)) 
             .map((product) => (
               <div key={product.name} style={styles.productBox}>
+                {getKeywordImage(product.name) && (
                 <img
-                  src={product.imgSrc}
-                  alt={product.name}
-                  style={styles.productImage}
-                />
+                src={getKeywordImage(product.name)}
+                alt={product.name}
+                style={styles.productImage}
+            />
+            )}
                 <h3>{product.name}</h3>
                 <p>{product.description}</p>
               </div>
