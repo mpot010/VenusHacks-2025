@@ -33,7 +33,7 @@ function Welcome() {
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'center', 
-        backgroundImage: 'url("https://ik.imagekit.io/3ks5fygi7/Screenshot%202025-05-23%20at%2011.43.30%20PM.png?updatedAt=1748069289817")',
+        backgroundImage: 'url("https://docs.google.com/drawings/d/e/2PACX-1vR5uxyWiN28vq53ArFSBhbT5l1mukfOQGYRG75S8KvyMQT8-xGA75eYbqRsHWxqFwdW5Gq9GiS-Qc_s/pub?w=1440&h=1080")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         padding: '20px'

@@ -8,7 +8,7 @@ import json
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="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"
+    api_key="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"
 )
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
