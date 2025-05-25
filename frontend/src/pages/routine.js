@@ -7,6 +7,7 @@ function Routine() {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [hasLikedLook, setHasLikedLook] = useState(false);
   const locationState = useLocation();
+  const [loading, setLoading] = useState(false);
   const keywordImages = {
     lip: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.08.44%20PM.png?updatedAt=1748125013304',
     eyelin: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.21.14%20PM.png?updatedAt=1748125280909',
@@ -66,6 +67,34 @@ function Routine() {
       setRoutineSteps(parsed);
     }
   }, []);
+  useEffect(() => {
+    const location = localStorage.getItem('location');
+    const rawDate = localStorage.getItem('date');
+  
+    if (location && rawDate) {
+      // Convert date to ISO format 'YYYY-MM-DD'
+      const isoDate = new Date(rawDate).toISOString().slice(0, 10);
+      console.log('Sending date to backend:', isoDate); // Debug log
+  
+      fetch('http://localhost:5001/get-weather', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ location, date: isoDate })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            console.error('Weather Error:', data.error);
+          } else {
+            console.log('Weather data:', data);
+          }
+        })
+        .catch(err => {
+          console.error('Fetch error:', err);
+        });
+    }
+  }, []);
+  
   
   
 
@@ -79,11 +108,53 @@ function Routine() {
     });
   };
 
-  const handleRegenerate = () => {
-    setSelectedProducts([]);
-    setHasLikedLook(false);
+  const handleRegenerate = async () => {
+    setLoading(true);
+    const disliked = [...selectedProducts];
+    if (disliked.length === 0) return;
+  
+    try {
+      const response = await fetch('http://localhost:5001/regenerate-look', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dislikedProducts: disliked })
+      });
+  
+      const result = await response.json();
+      if (response.ok && result.status === 'success') {
+        const newSteps = [...routineSteps];
+  
+        result.alternatives.forEach((alt, i) => {
+          const fullMatch = alt.match(/^\s*\[*([^\]]+)\]*\s*:\s*(.+?)\s*-\s*(.+)/);
+          if (fullMatch) {
+            const [_, brandAndProduct, stepName, instructions] = fullMatch;
+            const category = disliked[i];
+            const description = `${brandAndProduct.trim()} - ${instructions.trim()}`;
+            const indexToReplace = newSteps.findIndex(p => p.name === category);
+            if (indexToReplace !== -1) {
+              newSteps[indexToReplace] = {
+                name: category,
+                description: description,
+                imgSrc: getKeywordImage(category)
+              };
+            }
+          }
+        });
+  
+        setRoutineSteps(newSteps);
+        setSelectedProducts([]);
+      } else {
+        alert('Failed to regenerate: ' + result.message);
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Server error');
+    } finally {
+      setLoading(false);
+    }
   };
-
+  
+  
   const handleSaveLook = () => {
     const likedProducts = routineSteps
       .filter(product => !selectedProducts.includes(product.name))
@@ -124,6 +195,17 @@ function Routine() {
   };
 
   const styles = {
+    spinner: {
+      width: '16px',
+      height: '16px',
+      border: '3px solid #fff',
+      borderTop: '3px solid #ff6fa3',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite',
+      marginLeft: '10px',
+      display: 'inline-block',
+      verticalAlign: 'middle'
+    },
     container: {
       maxWidth: '800px',
       margin: '2rem auto',
@@ -208,6 +290,15 @@ function Routine() {
   };
 
   return (
+  <>
+    <style>
+      {`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}
+    </style>
     <div style={styles.container}>
       <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Your Makeup Routine</h2>
 
@@ -249,6 +340,7 @@ function Routine() {
         style={{ marginTop: '10px' }}
       />
     </div>
+  
   );
 })}
 
@@ -294,6 +386,7 @@ function Routine() {
           onClick={handleRegenerate}
         >
           Regenerate
+          {loading && <span style={styles.spinner}></span>}
         </button>
         )}
 
@@ -308,6 +401,7 @@ function Routine() {
         )}
       </div>
     </div>
+  </>  
   );
 }
 

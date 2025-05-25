@@ -1,57 +1,132 @@
 [
   {
-    "date": "2025-05-27",
-    "location": "Dublin, California",
+    "date": "2025-05-26",
+    "location": "Irvine, California",
     "occasions": [
-      "wedding"
+      "beach"
     ],
-    "recommendation": " 1. Primer: e.l.f. Poreless Putty Primer - Apply a small amount evenly over the face and neck to smooth and blur pores.\n\n2. Foundation: Clinique Beyond Perfecting Foundation + Concealer (allergy-tested) - Dot the product onto your face, then blend using a buffing brush, focusing on areas that need extra coverage.\n\n3. Concealer: e.l.f. Cosmetics Blemish Concealer - Conceal any remaining redness or imperfections, gently dabbing the product onto the affected areas.\n\n4. Powder: IT Cosmetics Bye Bye Pores Pressed Powder - Apply powder to set the foundation and concealer, focusing on the T-zone for oil control.\n\n5. Setting Spray: Urban Decay All Nighter Long-Lasting Makeup Setting Spray - Spray over the face and neck to lock in makeup and provide a long-lasting finish.\n\n6. Eyeshadow: e.l.f. Bite Size Eyeshadow Palette - Choose a neutral eyeshadow palette and apply a light color all over the lid, a medium color in the crease, and a darker color in the outer V for depth and definition.\n\n7. Mascara: L'Or\u00e9al Paris Voluminous Lash Paradise Mascara - Apply two coats of mascara to both the top and bottom lashes, focusing on lengthening and defining.\n\n8. Lipstick: NYX Soft Matte Lip Cream - Choose a long-lasting, rosacea-friendly lipstick in a flattering shade for the occasion. Apply using a lip brush for precise application.\n\nFor skincare, consider the following routine:\n\n1. Cleanser: CeraVe Hydrating Facial Cleanser - Gently cleanse the skin to remove makeup, impurities, and excess oil.\n\n2. Toner: Thayers Witch Hazel Facial Toner - Use a toner to balance the skin's pH and provide additional hydration.\n\n3. Serum: Paula's Choice RESIST C15 Super Booster - Apply a serum with antioxidants to combat signs of aging and protect the skin from environmental stressors.\n\n4. Moisturizer: Clinique Moisture Surge 72-Hour Auto-Replenishing Hydrator -Apply a hydrating moisturizer to keep the skin plump and dewy.\n\n5. Sunscreen: EltaMD UV Clear Broad-Spectrum SPF 46 - Apply a broad-spectrum sunscreen with at least SPF 30 to protect the skin from harmful UV rays.\n\n6. Rosacea Treatment: La Roche-Posay Effaclar Duo [+] - Apply a rosacea-specific treatment to control redness and soothe inflammation.\n\n7. Eye Cream: Olay Regenerist Micro-Sculpting Eye Swirl - Gently apply an eye cream to the delicate under-eye area to reduce the appearance of fine lines and improve hydration.\n\n8. Facial Oil: The Ordinary 100% Organic Cold-Pressed Rose Hip Seed Oil - Finish the skincare routine by applying a few drops of facial oil to lock in moisture and provide additional nourishment."
+    "recommendation": " 1. Sunscreen: EltaMD UV Clear SPF 46 - Apply a generous amount to your face and neck 15 minutes before sun exposure.\n\n2. Primer: bareMinerals Complexion Rescue Tinted Hydrating Gel Cream - Apply evenly all over the face and neck.\n\n3. Foundation: Neutrogena SkinClearing Liquid Makeup - Apply a light layer over the primer on areas that need coverage.\n\n4. Concealer: L'Or\u00e9al Paris True Match Super-Blendable Crayon Concealer - Conceal under-eye circles and spots.\n\n5. Powder: Physicians Formula Mineral Wear Talc-Free Mineral Powder - Set your makeup with a light dusting of powder.\n\n6. Bronzer: Pacifica Alight Multi-Mineral Bronzer - Sweep lightly across the forehead, cheeks, and chin for a sun-kissed look.\n\n7. Mascara: Tarte Amazonian Clay Smart Mascara - Curl and coat your lashes for a defined look.\n\n8. Lip Balm: Burt's Bees Lip Balm (Unscented) - Moisturize and protect your lips with a layer of lip balm."
   },
   {
     "title": "Look for 2025-05-26",
     "occasion": [
       "beach"
     ],
-    "location": "Dublin, California",
+    "location": "Irvine, California",
     "budget": [
-      "$75 to $100"
+      "$25 to $50"
     ],
-    "timestamp": "2025-05-25T01:30:02.454Z",
+    "timestamp": "2025-05-25T03:14:11.770Z",
     "products": [
       {
+        "name": "Sunscreen",
+        "description": "EltaMD UV Clear SPF 46 - Apply a generous amount to your face and neck 15 minutes before sun exposure.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.24.16%20PM.png?updatedAt=1748125612857"
+      },
+      {
+        "name": "Primer",
+        "description": "bareMinerals Complexion Rescue Tinted Hydrating Gel Cream - Apply evenly all over the face and neck.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.27.41%20PM.png?updatedAt=1748125667887"
+      },
+      {
         "name": "Foundation",
-        "description": "Clinique Beyond Perfecting Foundation + Concealer (allergy-tested) - Dot the product onto your face, then blend using a buffing brush, focusing on areas that need extra coverage.",
+        "description": "Neutrogena SkinClearing Liquid Makeup - Apply a light layer over the primer on areas that need coverage.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.27%20PM.png?updatedAt=1748125112139"
       },
       {
         "name": "Concealer",
-        "description": "e.l.f. Cosmetics Blemish Concealer - Conceal any remaining redness or imperfections, gently dabbing the product onto the affected areas.",
+        "description": "L'Or\u00e9al Paris True Match Super-Blendable Crayon Concealer - Conceal under-eye circles and spots.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.51%20PM.png?updatedAt=1748125138640"
       },
       {
         "name": "Powder",
-        "description": "IT Cosmetics Bye Bye Pores Pressed Powder - Apply powder to set the foundation and concealer, focusing on the T-zone for oil control.",
+        "description": "NYX Professional Makeup Baked Taupe Blush - looking flush to the cheeks. It can also be used as a contour powder. Apply it to the apples of the cheeks and blend outwards towards the hairline for a sculpted look.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.28.55%20PM.png?updatedAt=1748125741219"
       },
       {
-        "name": "Setting Spray",
-        "description": "Urban Decay All Nighter Long-Lasting Makeup Setting Spray - Spray over the face and neck to lock in makeup and provide a long-lasting finish.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.14.22%20PM.png?updatedAt=1748125048225"
-      },
-      {
-        "name": "Eyeshadow",
-        "description": "e.l.f. Bite Size Eyeshadow Palette - Choose a neutral eyeshadow palette and apply a light color all over the lid, a medium color in the crease, and a darker color in the outer V for depth and definition.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.23.41%20PM.png?updatedAt=1748125426584"
+        "name": "Bronzer",
+        "description": "Pacifica Alight Multi-Mineral Bronzer - Sweep lightly across the forehead, cheeks, and chin for a sun-kissed look.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.20.33%20PM.png?updatedAt=1748125238098"
       },
       {
         "name": "Mascara",
-        "description": "L'Or\u00e9al Paris Voluminous Lash Paradise Mascara - Apply two coats of mascara to both the top and bottom lashes, focusing on lengthening and defining.",
+        "description": "Tarte Amazonian Clay Smart Mascara - Curl and coat your lashes for a defined look.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.22.41%20PM.png?updatedAt=1748125368167"
+      },
+      {
+        "name": "Lip Balm",
+        "description": "Burt's Bees Lip Balm (Unscented) - Moisturize and protect your lips with a layer of lip balm.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.08.44%20PM.png?updatedAt=1748125013304"
+      }
+    ],
+    "recommendation": " 1. Sunscreen: EltaMD UV Clear SPF 46 - Apply a generous amount to your face and neck 15 minutes before sun exposure.\n\n2. Primer: bareMinerals Complexion Rescue Tinted Hydrating Gel Cream - Apply evenly all over the face and neck.\n\n3. Foundation: Neutrogena SkinClearing Liquid Makeup - Apply a light layer over the primer on areas that need coverage.\n\n4. Concealer: L'Or\u00e9al Paris True Match Super-Blendable Crayon Concealer - Conceal under-eye circles and spots.\n\n5. Powder: Physicians Formula Mineral Wear Talc-Free Mineral Powder - Set your makeup with a light dusting of powder.\n\n6. Bronzer: Pacifica Alight Multi-Mineral Bronzer - Sweep lightly across the forehead, cheeks, and chin for a sun-kissed look.\n\n7. Mascara: Tarte Amazonian Clay Smart Mascara - Curl and coat your lashes for a defined look.\n\n8. Lip Balm: Burt's Bees Lip Balm (Unscented) - Moisturize and protect your lips with a layer of lip balm."
+  },
+  {
+    "date": "2025-05-26",
+    "location": "Irvine, California",
+    "occasions": [
+      "beach"
+    ],
+    "recommendation": " 1. Sunscreen: EltaMD UV Clear Broad-Spectrum SPF 46 - Apply generously to entire face and neck 15 minutes before sun exposure.\n\n2. Primer: bareMinerals Original Prime Time Foundation Primer - Smooth evenly onto the face for a smooth, flawless base.\n\n3. Concealer: IT Cosmetics Bye Bye Under Eye Full Coverage Anti-Aging Waterproof Concealer - Dot concealer under eyes and blend outward using fingertips or a beauty sponge.\n\n4. Foundation: Neutrogena SkinClearing Liquid Makeup - Apply evenly onto the face, covering acne-prone areas.\n\n5. Setting Powder: e.l.f. Cosmetics Flawless Finish Brightening Pressed Powder - Lightly dust over the face to set the makeup.\n\n6. Bronzer: Physicians Formula Mineral Wear Talc-Free Mineral Airbrushing Pressed Powder Bronzer - Sweep bronzer across the forehead, cheeks, and jawline for a sun-kissed look.\n\n7. Mascara: Tarte Lash Paint Mascara - Coat lashes evenly, focusing on the outer corners for a more open-eyed look.\n\n8. Lip Tint: Burt's Bees Tinted Lip Balm - Apply a layer of tinted lip balm for a natural, hydrated look that will withstand the beach weather."
+  },
+  {
+    "date": "2025-06-25",
+    "location": "Tokyo",
+    "occasions": [
+      "Car Race"
+    ],
+    "recommendation": " 1. Primer: e.l.f. Poreless Putty Primer - Apply a thin layer evenly to the face to fill in pores and create a smooth base.\n\n2. Foundation: NYX Professional Makeup Bare With Me Tinted Skin Veil - Blend a pump onto the face for a lightweight, natural-looking coverage that matches your skin tone.\n\n3. Concealer: Milk Makeup Flex Concealer - Apply under the eyes, around the nose, and on any blemishes for medium coverage.\n\n4. Setting Powder: Physicians Formula Mineral Wear Talc-Free Mineral Airbrushing Pressed Powder - Set the foundation and concealer with a light dusting of powder all over the face.\n\n5. Brow Gel: Anastasia Beverly Hills Brow Gel - Brush through brows to define, fill, and tame unruly hairs.\n\n6. Mascara: L'Or\u00e9al Paris Voluminous Lash Paradise Mascara - Apply two coats to top and bottom lashes for a full, fluttery look.\n\n7. Lipstick: e.l.f. Matte Lipstick - Apply your chosen lipstick shade to the lips for a bold finish.\n\n8. Setting Spray: Urban Decay All Nighter Long-Lasting Makeup Setting Spray - Spray evenly over the face to lock in makeup and provide all-day wear.\n\nFor skincare, consider the following routine:\n\n1. Cleanser: CeraVe Hydrating Facial Cleanser - Gently cleanse the skin to remove makeup, impurities, and excess oil.\n\n2. Toner: Thayers Rose Petal Witch Hazel - Pat onto the skin after cleansing to balance the pH of the skin and reduce redness.\n\n3. Serum: The Ordinary Niacinamide 10% + Zinc 1% - Apply a few drops onto the face and neck, and massage gently to boost skin barrier function and reduce blemishes.\n\n4. Moisturizer: Neutrogena Hydro Boost Water Gel - Apply a generous layer of moisturizer to the face and neck to hydrate and plump the skin.\n\n5. Sunscreen: EltaMD UV Clear Broad-Spectrum SPF 46 - Apply a layer of sunscreen onto the face and neck as the final step of your morning skincare routine.\n\n6. Spot Treatment: The Ordinary Salicylic Acid 2% Solution - Apply a small amount onto any active blemishes to help reduce their appearance.\n\n7. Eye Cream: Olay Eyes Deep Hydrating Eye Gel Cream - Gently pat around the eye area to hydrate and reduce the appearance of fine lines and wrinkles.\n\n8. Overnight Treatment: Glossier Priming Moisturizer Rich - Apply a thick layer onto the face and neck before bedtime to deeply hydrate and nourish the skin while you sleep."
+  },
+  {
+    "title": "Look for Unknown",
+    "occasion": [
+      "Unknown"
+    ],
+    "location": "Unknown",
+    "budget": [
+      "Unknown"
+    ],
+    "timestamp": "2025-05-25T03:22:06.285Z",
+    "products": [
+      {
+        "name": "Primer",
+        "description": "e.l.f. Poreless Putty Primer - Apply a thin layer evenly to the face to fill in pores and create a smooth base.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.27.41%20PM.png?updatedAt=1748125667887"
+      },
+      {
+        "name": "Foundation",
+        "description": "NYX Professional Makeup Bare With Me Tinted Skin Veil - Blend a pump onto the face for a lightweight, natural-looking coverage that matches your skin tone.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.27%20PM.png?updatedAt=1748125112139"
+      },
+      {
+        "name": "Concealer",
+        "description": "Milk Makeup Flex Concealer - Apply under the eyes, around the nose, and on any blemishes for medium coverage.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.51%20PM.png?updatedAt=1748125138640"
+      },
+      {
+        "name": "Setting Powder",
+        "description": "Physicians Formula Mineral Wear Talc-Free Mineral Airbrushing Pressed Powder - Set the foundation and concealer with a light dusting of powder all over the face.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.28.55%20PM.png?updatedAt=1748125741219"
+      },
+      {
+        "name": "Brow Gel",
+        "description": "Anastasia Beverly Hills Brow Gel - Brush through brows to define, fill, and tame unruly hairs.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.22.01%20PM.png?updatedAt=1748125327535"
+      },
+      {
+        "name": "Mascara",
+        "description": "L'Or\u00e9al Paris Voluminous Lash Paradise Mascara - Apply two coats to top and bottom lashes for a full, fluttery look.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.22.41%20PM.png?updatedAt=1748125368167"
       },
       {
         "name": "Lipstick",
-        "description": "NYX Soft Matte Lip Cream - Choose a long-lasting, rosacea-friendly lipstick in a flattering shade for the occasion. Apply using a lip brush for precise application.",
+        "description": "e.l.f. Matte Lipstick - Apply your chosen lipstick shade to the lips for a bold finish.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.08.44%20PM.png?updatedAt=1748125013304"
+      },
+      {
+        "name": "Setting Spray",
+        "description": "Urban Decay All Nighter Long-Lasting Makeup Setting Spray - Spray evenly over the face to lock in makeup and provide all-day wear.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.14.22%20PM.png?updatedAt=1748125048225"
       },
       {
         "name": "Cleanser",
@@ -60,164 +135,40 @@
       },
       {
         "name": "Toner",
-        "description": "Thayers Witch Hazel Facial Toner - Use a toner to balance the skin's pH and provide additional hydration.",
+        "description": "Thayers Rose Petal Witch Hazel - Pat onto the skin after cleansing to balance the pH of the skin and reduce redness.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.50.55%20PM.png?updatedAt=1748130665365"
       },
       {
         "name": "Serum",
-        "description": "Paula's Choice RESIST C15 Super Booster - Apply a serum with antioxidants to combat signs of aging and protect the skin from environmental stressors.",
+        "description": "The Ordinary Niacinamide 10% + Zinc 1% - Apply a few drops onto the face and neck, and massage gently to boost skin barrier function and reduce blemishes.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.14.22%20PM.png?updatedAt=1748125048225"
       },
       {
         "name": "Moisturizer",
-        "description": "Clinique Moisture Surge 72-Hour Auto-Replenishing Hydrator -Apply a hydrating moisturizer to keep the skin plump and dewy.",
+        "description": "Neutrogena Hydro Boost Water Gel - Apply a generous layer of moisturizer to the face and neck to hydrate and plump the skin.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.24.02%20PM.png?updatedAt=1748125612583"
       },
       {
         "name": "Sunscreen",
-        "description": "EltaMD UV Clear Broad-Spectrum SPF 46 - Apply a broad-spectrum sunscreen with at least SPF 30 to protect the skin from harmful UV rays.",
+        "description": "EltaMD UV Clear Broad-Spectrum SPF 46 - Apply a layer of sunscreen onto the face and neck as the final step of your morning skincare routine.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.24.16%20PM.png?updatedAt=1748125612857"
       },
       {
-        "name": "Rosacea Treatment",
-        "description": "La Roche-Posay Effaclar Duo [+] - Apply a rosacea-specific treatment to control redness and soothe inflammation.",
+        "name": "Spot Treatment",
+        "description": "The Ordinary Salicylic Acid 2% Solution - Apply a small amount onto any active blemishes to help reduce their appearance.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.23.09%20PM.png?updatedAt=1748128994672"
       },
       {
         "name": "Eye Cream",
-        "description": "Olay Regenerist Micro-Sculpting Eye Swirl - Gently apply an eye cream to the delicate under-eye area to reduce the appearance of fine lines and improve hydration.",
+        "description": "OLEHENRIKSEN Banana Bright Eye Cream - infused eye cream that brightens, smoothes, and de-puffs the under-eye area. Just apply a small amount of product gently around the eye area in the morning and evening for best results.",
         "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.09.46%20PM.png?updatedAt=1748128191990"
       },
       {
-        "name": "Facial Oil",
-        "description": "The Ordinary 100% Organic Cold-Pressed Rose Hip Seed Oil - Finish the skincare routine by applying a few drops of facial oil to lock in moisture and provide additional nourishment.",
-        "imgSrc": null
+        "name": "Overnight Treatment",
+        "description": "Glossier Priming Moisturizer Rich - Apply a thick layer onto the face and neck before bedtime to deeply hydrate and nourish the skin while you sleep.",
+        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.23.09%20PM.png?updatedAt=1748128994672"
       }
     ],
-    "recommendation": " 1. Primer: e.l.f. Poreless Putty Primer - Apply a small amount evenly over the face and neck to smooth and blur pores.\n\n2. Foundation: Clinique Beyond Perfecting Foundation + Concealer (allergy-tested) - Dot the product onto your face, then blend using a buffing brush, focusing on areas that need extra coverage.\n\n3. Concealer: e.l.f. Cosmetics Blemish Concealer - Conceal any remaining redness or imperfections, gently dabbing the product onto the affected areas.\n\n4. Powder: IT Cosmetics Bye Bye Pores Pressed Powder - Apply powder to set the foundation and concealer, focusing on the T-zone for oil control.\n\n5. Setting Spray: Urban Decay All Nighter Long-Lasting Makeup Setting Spray - Spray over the face and neck to lock in makeup and provide a long-lasting finish.\n\n6. Eyeshadow: e.l.f. Bite Size Eyeshadow Palette - Choose a neutral eyeshadow palette and apply a light color all over the lid, a medium color in the crease, and a darker color in the outer V for depth and definition.\n\n7. Mascara: L'Or\u00e9al Paris Voluminous Lash Paradise Mascara - Apply two coats of mascara to both the top and bottom lashes, focusing on lengthening and defining.\n\n8. Lipstick: NYX Soft Matte Lip Cream - Choose a long-lasting, rosacea-friendly lipstick in a flattering shade for the occasion. Apply using a lip brush for precise application.\n\nFor skincare, consider the following routine:\n\n1. Cleanser: CeraVe Hydrating Facial Cleanser - Gently cleanse the skin to remove makeup, impurities, and excess oil.\n\n2. Toner: Thayers Witch Hazel Facial Toner - Use a toner to balance the skin's pH and provide additional hydration.\n\n3. Serum: Paula's Choice RESIST C15 Super Booster - Apply a serum with antioxidants to combat signs of aging and protect the skin from environmental stressors.\n\n4. Moisturizer: Clinique Moisture Surge 72-Hour Auto-Replenishing Hydrator -Apply a hydrating moisturizer to keep the skin plump and dewy.\n\n5. Sunscreen: EltaMD UV Clear Broad-Spectrum SPF 46 - Apply a broad-spectrum sunscreen with at least SPF 30 to protect the skin from harmful UV rays.\n\n6. Rosacea Treatment: La Roche-Posay Effaclar Duo [+] - Apply a rosacea-specific treatment to control redness and soothe inflammation.\n\n7. Eye Cream: Olay Regenerist Micro-Sculpting Eye Swirl - Gently apply an eye cream to the delicate under-eye area to reduce the appearance of fine lines and improve hydration.\n\n8. Facial Oil: The Ordinary 100% Organic Cold-Pressed Rose Hip Seed Oil - Finish the skincare routine by applying a few drops of facial oil to lock in moisture and provide additional nourishment."
-  },
-  {
-    "date": "2025-08-25",
-    "location": "irvine",
-    "occasions": [
-      "hangout"
-    ],
-    "recommendation": " 1. Cleanser: e.l.f. Coconut Water Cleansing Oil - Massage a few pumps onto dry skin, then rinse with warm water.\n\n2. Toner: Neutrogena Ultra-Hydrating Hydra Boost Hyaluronic Acid Hydrating Mist - Mist evenly onto face after cleansing.\n\n3. Serum: The Ordinary Buffet - Apply 2-3 drops onto fingertips and gently pat onto face.\n\n4. Moisturizer: Paula's Choice RESIST Super-Light Wrinkle Defense SPF 30 - Apply a thin layer onto face and neck, and let it absorb before moving on to the next step.\n\n5. Primer: Physicians Formula The Healthy Foundation Primer - Apply a pea-sized amount evenly onto face, focusing on areas prone to acne.\n\n6. Foundation: BareMinerals BarePro Performance Wear Liquid Foundation - Pump a pump onto the back of your hand, blend onto face using a beauty blender. If more coverage is needed, add additional pumps as needed.\n\n7. Concealer: e.l.f. Camo Concealer - Apply a small amount under eyes and on blemishes, blending gently with a concealer brush.\n\n8. Setting Powder: Rimmel Stay Matte Pressed Powder - Lightly dust over face to set makeup, reducing shine throughout the day."
-  },
-  {
-    "title": "Look for Unknown",
-    "occasion": [
-      "Unknown"
-    ],
-    "location": "Unknown",
-    "budget": [
-      "Unknown"
-    ],
-    "timestamp": "2025-05-25T01:32:51.938Z",
-    "products": [
-      {
-        "name": "Cleanser",
-        "description": "e.l.f. Coconut Water Cleansing Oil - Massage a few pumps onto dry skin, then rinse with warm water.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.23.09%20PM.png?updatedAt=1748128994672"
-      },
-      {
-        "name": "Toner",
-        "description": "Neutrogena Ultra-Hydrating Hydra Boost Hyaluronic Acid Hydrating Mist - Mist evenly onto face after cleansing.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.50.55%20PM.png?updatedAt=1748130665365"
-      },
-      {
-        "name": "Serum",
-        "description": "The Ordinary Buffet - Apply 2-3 drops onto fingertips and gently pat onto face.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.14.22%20PM.png?updatedAt=1748125048225"
-      },
-      {
-        "name": "Moisturizer",
-        "description": "Paula's Choice RESIST Super-Light Wrinkle Defense SPF 30 - Apply a thin layer onto face and neck, and let it absorb before moving on to the next step.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.24.02%20PM.png?updatedAt=1748125612583"
-      },
-      {
-        "name": "Primer",
-        "description": "Physicians Formula The Healthy Foundation Primer - Apply a pea-sized amount evenly onto face, focusing on areas prone to acne.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.27.41%20PM.png?updatedAt=1748125667887"
-      },
-      {
-        "name": "Foundation",
-        "description": "BareMinerals BarePro Performance Wear Liquid Foundation - Pump a pump onto the back of your hand, blend onto face using a beauty blender. If more coverage is needed, add additional pumps as needed.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.27%20PM.png?updatedAt=1748125112139"
-      },
-      {
-        "name": "Concealer",
-        "description": "e.l.f. Camo Concealer - Apply a small amount under eyes and on blemishes, blending gently with a concealer brush.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.51%20PM.png?updatedAt=1748125138640"
-      },
-      {
-        "name": "Setting Powder",
-        "description": "Rimmel Stay Matte Pressed Powder - Lightly dust over face to set makeup, reducing shine throughout the day.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.28.55%20PM.png?updatedAt=1748125741219"
-      }
-    ],
-    "recommendation": " 1. Cleanser: e.l.f. Coconut Water Cleansing Oil - Massage a few pumps onto dry skin, then rinse with warm water.\n\n2. Toner: Neutrogena Ultra-Hydrating Hydra Boost Hyaluronic Acid Hydrating Mist - Mist evenly onto face after cleansing.\n\n3. Serum: The Ordinary Buffet - Apply 2-3 drops onto fingertips and gently pat onto face.\n\n4. Moisturizer: Paula's Choice RESIST Super-Light Wrinkle Defense SPF 30 - Apply a thin layer onto face and neck, and let it absorb before moving on to the next step.\n\n5. Primer: Physicians Formula The Healthy Foundation Primer - Apply a pea-sized amount evenly onto face, focusing on areas prone to acne.\n\n6. Foundation: BareMinerals BarePro Performance Wear Liquid Foundation - Pump a pump onto the back of your hand, blend onto face using a beauty blender. If more coverage is needed, add additional pumps as needed.\n\n7. Concealer: e.l.f. Camo Concealer - Apply a small amount under eyes and on blemishes, blending gently with a concealer brush.\n\n8. Setting Powder: Rimmel Stay Matte Pressed Powder - Lightly dust over face to set makeup, reducing shine throughout the day."
-  },
-  {
-    "date": "2025-08-25",
-    "location": "barcelona",
-    "occasions": [
-      "meeting"
-    ],
-    "recommendation": " 1. Cleanser: e.l.f. Hydrating Bubble Cleanser - Apply a pump to damp skin, lather, and massage gently before rinsing.\n\n2. Toner: Neutrogena Hydra-Boost Hydrating Toner - Dab onto a cotton pad and sweep over cleansed skin.\n\n3. Acne Treatment: Paula's Choice Skin Perfecting 2% BHA Liquid Exfoliant - Apply a thin layer onto cleansed skin, morning and night.\n\n4. Moisturizer: e.l.f. Moisturizing Eye Cream - Gently pat around the eye area, day and night.\n\n   - e.l.f. Moisturizing Facial Cream - Apply a layer onto the rest of the face, day and night.\n\n5. Primer: NYX Professional Makeup Pore Filler Primer - Smooth a small amount onto the skin, focusing on areas with large pores.\n\n6. Foundation: L'Or\u00e9al Paris Infallible Pro-Glow Foundation - Apply a thin layer onto the face, blending well for medium coverage.\n\n7. Concealer: Maybelline Instant Age Rewind Eraser Dark Circles Treatment Concealer - Dab onto the under-eye area and any blemishes, blending well.\n\n8. Setting Powder: e.l.f. Cosmetics HD Powder - Lightly dust over the face to set the makeup and reduce shine.\n\nFor the meeting occasion, consider adding:\n- eyeliner: e.l.f. Mad for Matte Liquid Eyeliner - Apply a thin line along the upper lash line for a professional look.\n- mascara: L'Or\u00e9al Paris Voluminous Lash Paradise Mascara - Apply one coat to the upper lashes for a natural yet defined look.\n\nFor the Barcelona weather, consider carrying a compact mirror and blotting papers to touch-up throughout the day.\n\nEnjoy your preparation for the meeting!"
-  },
-  {
-    "title": "Look for Unknown",
-    "occasion": [
-      "Unknown"
-    ],
-    "location": "Unknown",
-    "budget": [
-      "Unknown"
-    ],
-    "timestamp": "2025-05-25T01:35:38.132Z",
-    "products": [
-      {
-        "name": "Cleanser",
-        "description": "e.l.f. Hydrating Bubble Cleanser - Apply a pump to damp skin, lather, and massage gently before rinsing.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.23.09%20PM.png?updatedAt=1748128994672"
-      },
-      {
-        "name": "Toner",
-        "description": "Neutrogena Hydra-Boost Hydrating Toner - Dab onto a cotton pad and sweep over cleansed skin.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.50.55%20PM.png?updatedAt=1748130665365"
-      },
-      {
-        "name": "Acne Treatment",
-        "description": "Paula's Choice Skin Perfecting 2% BHA Liquid Exfoliant - Apply a thin layer onto cleansed skin, morning and night.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%204.23.09%20PM.png?updatedAt=1748128994672"
-      },
-      {
-        "name": "Moisturizer",
-        "description": "e.l.f. Moisturizing Eye Cream - Gently pat around the eye area, day and night.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.24.02%20PM.png?updatedAt=1748125612583"
-      },
-      {
-        "name": "Primer",
-        "description": "NYX Professional Makeup Pore Filler Primer - Smooth a small amount onto the skin, focusing on areas with large pores.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.27.41%20PM.png?updatedAt=1748125667887"
-      },
-      {
-        "name": "Foundation",
-        "description": "L'Or\u00e9al Paris Infallible Pro-Glow Foundation - Apply a thin layer onto the face, blending well for medium coverage.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.27%20PM.png?updatedAt=1748125112139"
-      },
-      {
-        "name": "Concealer",
-        "description": "Maybelline Instant Age Rewind Eraser Dark Circles Treatment Concealer - Dab onto the under-eye area and any blemishes, blending well.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.18.51%20PM.png?updatedAt=1748125138640"
-      },
-      {
-        "name": "Setting Powder",
-        "description": "e.l.f. Cosmetics HD Powder - Lightly dust over the face to set the makeup and reduce shine.",
-        "imgSrc": "https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.28.55%20PM.png?updatedAt=1748125741219"
-      }
-    ],
-    "recommendation": " 1. Cleanser: e.l.f. Hydrating Bubble Cleanser - Apply a pump to damp skin, lather, and massage gently before rinsing.\n\n2. Toner: Neutrogena Hydra-Boost Hydrating Toner - Dab onto a cotton pad and sweep over cleansed skin.\n\n3. Acne Treatment: Paula's Choice Skin Perfecting 2% BHA Liquid Exfoliant - Apply a thin layer onto cleansed skin, morning and night.\n\n4. Moisturizer: e.l.f. Moisturizing Eye Cream - Gently pat around the eye area, day and night.\n\n   - e.l.f. Moisturizing Facial Cream - Apply a layer onto the rest of the face, day and night.\n\n5. Primer: NYX Professional Makeup Pore Filler Primer - Smooth a small amount onto the skin, focusing on areas with large pores.\n\n6. Foundation: L'Or\u00e9al Paris Infallible Pro-Glow Foundation - Apply a thin layer onto the face, blending well for medium coverage.\n\n7. Concealer: Maybelline Instant Age Rewind Eraser Dark Circles Treatment Concealer - Dab onto the under-eye area and any blemishes, blending well.\n\n8. Setting Powder: e.l.f. Cosmetics HD Powder - Lightly dust over the face to set the makeup and reduce shine.\n\nFor the meeting occasion, consider adding:\n- eyeliner: e.l.f. Mad for Matte Liquid Eyeliner - Apply a thin line along the upper lash line for a professional look.\n- mascara: L'Or\u00e9al Paris Voluminous Lash Paradise Mascara - Apply one coat to the upper lashes for a natural yet defined look.\n\nFor the Barcelona weather, consider carrying a compact mirror and blotting papers to touch-up throughout the day.\n\nEnjoy your preparation for the meeting!"
+    "recommendation": " 1. Primer: e.l.f. Poreless Putty Primer - Apply a thin layer evenly to the face to fill in pores and create a smooth base.\n\n2. Foundation: NYX Professional Makeup Bare With Me Tinted Skin Veil - Blend a pump onto the face for a lightweight, natural-looking coverage that matches your skin tone.\n\n3. Concealer: Milk Makeup Flex Concealer - Apply under the eyes, around the nose, and on any blemishes for medium coverage.\n\n4. Setting Powder: Physicians Formula Mineral Wear Talc-Free Mineral Airbrushing Pressed Powder - Set the foundation and concealer with a light dusting of powder all over the face.\n\n5. Brow Gel: Anastasia Beverly Hills Brow Gel - Brush through brows to define, fill, and tame unruly hairs.\n\n6. Mascara: L'Or\u00e9al Paris Voluminous Lash Paradise Mascara - Apply two coats to top and bottom lashes for a full, fluttery look.\n\n7. Lipstick: e.l.f. Matte Lipstick - Apply your chosen lipstick shade to the lips for a bold finish.\n\n8. Setting Spray: Urban Decay All Nighter Long-Lasting Makeup Setting Spray - Spray evenly over the face to lock in makeup and provide all-day wear.\n\nFor skincare, consider the following routine:\n\n1. Cleanser: CeraVe Hydrating Facial Cleanser - Gently cleanse the skin to remove makeup, impurities, and excess oil.\n\n2. Toner: Thayers Rose Petal Witch Hazel - Pat onto the skin after cleansing to balance the pH of the skin and reduce redness.\n\n3. Serum: The Ordinary Niacinamide 10% + Zinc 1% - Apply a few drops onto the face and neck, and massage gently to boost skin barrier function and reduce blemishes.\n\n4. Moisturizer: Neutrogena Hydro Boost Water Gel - Apply a generous layer of moisturizer to the face and neck to hydrate and plump the skin.\n\n5. Sunscreen: EltaMD UV Clear Broad-Spectrum SPF 46 - Apply a layer of sunscreen onto the face and neck as the final step of your morning skincare routine.\n\n6. Spot Treatment: The Ordinary Salicylic Acid 2% Solution - Apply a small amount onto any active blemishes to help reduce their appearance.\n\n7. Eye Cream: Olay Eyes Deep Hydrating Eye Gel Cream - Gently pat around the eye area to hydrate and reduce the appearance of fine lines and wrinkles.\n\n8. Overnight Treatment: Glossier Priming Moisturizer Rich - Apply a thick layer onto the face and neck before bedtime to deeply hydrate and nourish the skin while you sleep."
   }
 ]

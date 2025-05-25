@@ -8,7 +8,7 @@ import json
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="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"
+    api_key="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"
 )
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -48,6 +48,21 @@ def get_weather_for_datetime(city, target_datetime_str):
         return weather_info
     else:
         print("No weather data found.")
+
+@app.route('/get-weather', methods=['POST'])
+def get_weather():
+    data = request.get_json()
+    city = data.get('location')
+    date = data.get('date')
+
+    if not city or not date:
+        return jsonify({"error": "Missing location or date"}), 400
+
+    weather = get_weather_for_datetime(city, date)
+    if weather:
+        return jsonify(weather)
+    else:
+        return jsonify({"error": "Weather data unavailable"}), 500
 
 @app.before_request
 def log_request_info():
@@ -130,9 +145,11 @@ def generate_look():
         - Sun Level: {weather_data['Sun Level']}
         - Chance of Precipitation: {weather_data['Chance of Precipitation']}
 
-        Recommend a only 8 step makeup routine using budget-appropriate products with name and descriptions, avoiding allergens. Make the tone friendly and professional. Try to include preferred brands but it should not include only them.
-        The format should be [Product]: [Product Description] - [Instructions]. Give only the steps/instructions and NOTHING else"
+        Recommend a ONLY 8 step makeup routine using budget-appropriate products with name and descriptions, avoiding allergens. Make the tone friendly and professional. Try to include preferred brands but it should not include only them.
+        The format should be [Product]: [Product Description] - [Instructions]. Give only the steps/instructions and NOTHING else. Do not give any duplicates."
         """.strip()
+
+        print(prompt)
 
         ai_response = client.chat.completions.create(
             model="mistralai/mistral-7b-instruct",
@@ -144,7 +161,6 @@ def generate_look():
         )
 
         generated_text = ai_response.choices[0].message.content
-        print(generated_text)
         return jsonify({'status': 'success', 'recommendation': generated_text})
 
     except Exception as e:
@@ -180,55 +196,39 @@ def regenerate_look():
     try:
         data = request.get_json()
         disliked_products = data.get('dislikedProducts', [])
-        location = data.get('location')
-        date = data.get('date')
-        skin_conditions = data.get('skinConditions', [])
-        allergies = data.get('allergies', [])
-        preferred_brands = data.get('preferredBrands', [])
-        occasions = data.get('occasions', [])
-        budget = data.get('budget', [])
+        if not disliked_products:
+            return jsonify({'status': 'error', 'message': 'Nothing to regenerate'}), 400
+        all_alternatives = []
 
-        weather_data = get_weather_for_datetime(location, date)
-        if not weather_data:
-            return jsonify({'status': 'error', 'message': 'Weather data unavailable'}), 400
+        for product in disliked_products:
+            prompt = f"""
+            You are a helpful beauty assistant.
 
-        prompt = f"""
-        You are a helpful beauty assistant.
+            The user disliked the following product category: "{product}".
 
-        Based on the user's profile and weather, suggest an alternative 8-step makeup routine.
-        Do not include any of the following disliked products: {', '.join(disliked_products)}.
+            Suggest a **new product** from a different **brand**, keeping the same category ("{product}"). For example, if the original product was a primer, suggest a different primer from another brand.
 
-        Skin Conditions: {', '.join(skin_conditions)}
-        Allergies: {', '.join(allergies)}
-        Preferred Brands: {', '.join(preferred_brands)}
-        Occasion: {', '.join(occasions)}
-        Budget: {', '.join(budget)}
-        Location: {location}
-        Date: {date}
+            Output the result in this exact format:
+            [New Product Name]: [Product Description] - [How to use it]
 
-        Weather Forecast:
-        - Temperature: {weather_data['Temperature']}
-        - Humidity: {weather_data['Humidity']}
-        - Condition: {weather_data['Condition']}
-        - Cloudiness: {weather_data['Cloudiness']}
-        - Sun Level: {weather_data['Sun Level']}
-        - Chance of Precipitation: {weather_data['Chance of Precipitation']}
+            Do not repeat the original product name or brand at all.
+            Do not include any intro or explanation.
+            """.strip()
 
-        Format: [Product]: [Product Description] - [Instructions]
-        Only return the routine and nothing else.
-        """
 
-        ai_response = client.chat.completions.create(
-            model="mistralai/mistral-7b-instruct",
-            messages=[
-                {"role": "system", "content": "You are a helpful beauty assistant."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.8
-        )
+            ai_response = client.chat.completions.create(
+                model="mistralai/mistral-7b-instruct",
+                messages=[
+                    {"role": "system", "content": "You are a helpful beauty assistant."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.8
+            )
 
-        new_routine = ai_response.choices[0].message.content
-        return jsonify({'status': 'success', 'recommendation': new_routine})
+            new_step = ai_response.choices[0].message.content.strip()
+            all_alternatives.append(new_step)
+
+        return jsonify({'status': 'success', 'alternatives': all_alternatives})
     
     except Exception as e:
         print("Error in regenerate-look:", e)
