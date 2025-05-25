@@ -171,7 +171,7 @@ function Routine() {
         budget: JSON.parse(localStorage.getItem('budget') || '["Unknown"]'),
         timestamp: new Date().toISOString(),
         products: likedProducts,
-        recommendation: localStorage.getItem('recommendation') || ''
+        recommendation: routineSteps.map((step, i) => `${i + 1}. ${step.name}: ${step.description}`).join('\n')
       };
   
     fetch('http://localhost:5001/save-look', {

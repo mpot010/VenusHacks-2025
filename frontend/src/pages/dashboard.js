@@ -105,12 +105,11 @@ function Dashboard() {
         const seen = new Set();
   
         data.forEach(look => {
-          // Normalize recommendation by trimming and replacing multiple spaces/newlines
-          const normalizedRec = (look.recommendation || '')
-            .replace(/\s+/g, ' ')
-            .trim()
-            .toLowerCase();
-  
+          // Ensure required fields exist
+          if (!look.recommendation || !look.location || !Array.isArray(look.occasions) || look.occasions.length === 0) return;
+        
+          const normalizedRec = look.recommendation.replace(/\s+/g, ' ').trim().toLowerCase();
+        
           if (!seen.has(normalizedRec)) {
             seen.add(normalizedRec);
             uniqueLooks.push(look);

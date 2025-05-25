@@ -8,7 +8,7 @@ import json
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="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"
+    api_key="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"
 )
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -118,6 +118,7 @@ def generate_look():
         skin_conditions = data.get('skinConditions', [])
         allergies = data.get('allergies', [])
         preferred_brands = data.get('preferredBrands', [])
+        owned_products = data.get('ownedProducts', [])
         occasions = data.get('occasions', [])
         budget = data.get('budget', [])
 
@@ -132,6 +133,7 @@ def generate_look():
         -  Skin Conditions: {', '.join(data.get('skinConditions', []))}
         - Allergies: {', '.join(data.get('allergies', []))}
         - Preferred Brands: {data.get('preferredBrands', 'N/A')}
+        - Owned Products: {data.get('ownedProducts', 'N/A')}
         - Occasion: {', '.join(data.get('occasions', []))}
         - Budget: {', '.join(data.get('budget', []))}
         - Location: {location}
@@ -145,7 +147,7 @@ def generate_look():
         - Sun Level: {weather_data['Sun Level']}
         - Chance of Precipitation: {weather_data['Chance of Precipitation']}
 
-        Recommend a ONLY 8 step makeup routine using budget-appropriate products with name and descriptions, avoiding allergens. Make the tone friendly and professional. Try to include preferred brands but it should not include only them.
+        Recommend a ONLY 8 step makeup routine using budget-appropriate products with name and descriptions, avoiding allergens. Make the tone friendly and professional. Try to include preferred brands and owned products but it should not include only them.
         The format should be [Product]: [Product Description] - [Instructions]. Give only the steps/instructions and NOTHING else. Do not give any duplicates."
         """.strip()
 

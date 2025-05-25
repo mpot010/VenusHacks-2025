@@ -16,30 +16,31 @@ function Look() {
   });
 
   useEffect(() => {
-    const savedProfile = localStorage.getItem('glamProfile');
-    if (savedProfile) {
-      setProfile(prev => ({
-        ...prev,
-        ...JSON.parse(savedProfile)
-      }));
-    }
+    setProfile({
+      occasions: [],
+      budget: [],
+      location: '',
+      date: '',
+      otherOccasion: ''
+    });
   }, []);
 
   const toggleOption = (category, value) => {
     setProfile(prev => {
-      const selected = new Set(prev[category] || []);
-      selected.has(value) ? selected.delete(value) : selected.add(value);
-
-      const updated = { ...prev, [category]: [...selected] };
-
-      // Clear otherOccasion if "other" is deselected
-      if (category === 'occasions' && !selected.has('other')) {
+      const updated = {
+        ...prev,
+        [category]: [value], // Only keep the clicked value
+      };
+  
+      // Clear otherOccasion if it's not selected
+      if (category === 'occasions' && value !== 'other') {
         updated.otherOccasion = '';
       }
-
+  
       return updated;
     });
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
