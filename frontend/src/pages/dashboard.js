@@ -8,21 +8,20 @@ function Dashboard() {
   const [savedLooks, setSavedLooks] = useState([]);
 
   const productNameFromLine = (line) => {
-    const colonIndex = line.indexOf(':');
-    if (colonIndex === -1) return '';
+    if (!line || !line.includes(':')) return '';
   
-    // Get the text after colon (description + instructions)
-    const afterColon = line.slice(colonIndex + 1).trim();
-  
-    // The product name is usually before the first ' - ' (dash with spaces)
+    const parts = line.split(':');
+    if (parts.length < 2) return '';
+
+    const afterColon = parts.slice(1).join(':').trim();
     const dashIndex = afterColon.indexOf(' - ');
-    if (dashIndex !== -1) {
-      return afterColon.slice(0, dashIndex).trim()
-    }
+    let productDescription = dashIndex !== -1 ? afterColon.slice(0, dashIndex).trim() : afterColon;
+
+    productDescription = productDescription.replace(/^\*+/, '').trim();
   
-    // fallback to whole afterColon if no dash found
-    return afterColon;
+    return productDescription || '';
   };
+  
   
   function capitalizeFirstLetter(str) {
     if (!str) return '';
@@ -101,14 +100,33 @@ function Dashboard() {
       try {
         const response = await fetch('http://localhost:5001/get-looks');
         const data = await response.json();
-        setSavedLooks(data);
+  
+        const uniqueLooks = [];
+        const seen = new Set();
+  
+        data.forEach(look => {
+          // Normalize recommendation by trimming and replacing multiple spaces/newlines
+          const normalizedRec = (look.recommendation || '')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .toLowerCase();
+  
+          if (!seen.has(normalizedRec)) {
+            seen.add(normalizedRec);
+            uniqueLooks.push(look);
+          }
+        });
+  
+        setSavedLooks(uniqueLooks);
       } catch (err) {
         console.error('Failed to fetch saved looks:', err);
       }
     };
-
+  
     fetchLooks();
   }, []);
+  
+  
   
   const handleCreateLook = () => navigate('/look');
   const handleEditProfile = () => navigate('/create');
@@ -146,9 +164,18 @@ function Dashboard() {
   
       <div style={styles.grid}>
       {savedLooks.map((look, index) => {
-  const lines = look.recommendation ? look.recommendation.split('\n').filter(line => line.trim() !== '') : [];
+  const lines = look.recommendation
+    ? look.recommendation.split('\n').filter(line => line.trim() !== '')
+    : [];
 
-  const productNames = lines.map(line => productNameFromLine(line));
+  const productNames = [...new Set(lines.map(line => productNameFromLine(line)).filter(name => name.trim() !== ''))];
+
+  const location = look.location?.trim() || '';
+  const occasion = (look.occasions && look.occasions.length > 0 && look.occasions[0].trim()) || '';
+  const parts = [];
+  if (location) parts.push(capitalizeFirstLetter(location));
+  if (occasion) parts.push(capitalizeFirstLetter(occasion));
+  const title = parts.length > 0 ? parts.join(' ') : 'Unknown';
 
   return (
     <div key={index} style={{ ...styles.card }}>
@@ -159,9 +186,7 @@ function Dashboard() {
         fontWeight: 'bold',
         marginBottom: '0.5rem'
       }}>
-        {(look.location?.trim() && look.occasions?.length > 0 && look.occasions[0].trim())
-          ? `${capitalizeFirstLetter(look.location.trim())} ${capitalizeFirstLetter(look.occasions[0].trim())}`
-          : 'Unknown'}
+        {title}
       </div>
 
       <div style={{

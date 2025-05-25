@@ -71,25 +71,31 @@ function Look() {
   
       const result = await response.json();
   
-      if (response.ok && result.status === 'success') {
-        const lookToSave = {
-          date: profile.date,
-          location: profile.location,
-          occasions: combinedProfile.occasions,
-          recommendation: result.recommendation,
-          products: result.products,
-        };
-  
-        await fetch('http://localhost:5001/save-look', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(lookToSave),
-        });
-  
-        localStorage.setItem('recommendation', result.recommendation);
-        navigate('/routine');
+    
+
+    
+        if (response.ok && result.status === 'success') {
+          const lookToSave = {
+            date: profile.date,
+            location: profile.location,
+            occasions: profile.occasions.includes('other') && profile.otherOccasion
+              ? [...profile.occasions.filter(o => o !== 'other'), profile.otherOccasion.trim()]
+              : profile.occasions,
+            recommendation: result.recommendation,
+          };
+        
+          await fetch('http://localhost:5001/save-look', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(lookToSave),
+          });
+        
+          localStorage.setItem('recommendation', result.recommendation);
+          navigate('/routine');
+        
+        
       } else {
         alert('Failed to generate look: ' + (result.message || 'unknown error'));
       }
@@ -105,14 +111,17 @@ function Look() {
 
   const styles = {
     spinner: {
-      width: '30px',
+      width: '16px',
       height: '16px',
-      border: '1px solid #fff',
-      borderTop: '1px solid #ff6fa3',
+      border: '3px solid #fff',
+      borderTop: '3px solid #ff6fa3',
       borderRadius: '50%',
       animation: 'spin 1s linear infinite',
-      marginLeft: '10px'
+      marginLeft: '10px',
+      display: 'inline-block',
+      verticalAlign: 'middle'
     },
+    
     container: {
       maxWidth: '600px',
       margin: '2rem auto',
@@ -190,6 +199,14 @@ function Look() {
 
   return (
     <>
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}
+      </style>
       <form style={styles.container} onSubmit={handleSubmit}>
         <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           {localStorage.getItem('glamProfile') ? 'Create Your Look' : 'Create Your Look'}

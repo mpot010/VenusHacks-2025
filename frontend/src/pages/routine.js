@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
+import { useLocation } from 'react-router-dom';
 
 function Routine() {
   const [routineSteps, setRoutineSteps] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [hasLikedLook, setHasLikedLook] = useState(false);
+  const locationState = useLocation();
   const keywordImages = {
     lip: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.08.44%20PM.png?updatedAt=1748125013304',
     eyelin: 'https://ik.imagekit.io/rbfrqccr5/Screen%20Shot%202025-05-24%20at%203.21.14%20PM.png?updatedAt=1748125280909',
@@ -40,6 +42,10 @@ function Routine() {
   };
   const navigate = useNavigate(); 
   useEffect(() => {
+    const state = locationState.state;
+    if (state?.recommendation) {
+      localStorage.setItem('recommendation', state.recommendation);
+    }
     const saved = localStorage.getItem('recommendation');
     if (saved) {
       const lines = saved.split('\n').filter(Boolean);
@@ -51,7 +57,7 @@ function Routine() {
           return {
             name,
             description: fullMatch[2].trim(),
-            imgSrc: getKeywordImage(name) // <-- Add image here
+            imgSrc: getKeywordImage(name) 
           };
         }
         return null;
@@ -87,12 +93,15 @@ function Routine() {
         imgSrc: getKeywordImage(product.name)
       }));
   
-    const lookData = {
-      title: "My Saved Look",
-      occasion: "Custom",
-      timestamp: new Date().toISOString(),
-      products: likedProducts
-    };
+      const lookData = {
+        title: "Look for " + (localStorage.getItem('date') || 'Unknown'),
+        occasion: JSON.parse(localStorage.getItem('occasions') || '["Unknown"]'),
+        location: localStorage.getItem('location') || 'Unknown',
+        budget: JSON.parse(localStorage.getItem('budget') || '["Unknown"]'),
+        timestamp: new Date().toISOString(),
+        products: likedProducts,
+        recommendation: localStorage.getItem('recommendation') || ''
+      };
   
     fetch('http://localhost:5001/save-look', {
       method: 'POST',
@@ -205,7 +214,7 @@ function Routine() {
       {/* Instructions before liking the look */}
       {!hasLikedLook && (
         <div style={styles.instructions}>
-          <p>Select the products you like by checking the boxes. Once you're done, click "I Like This Look" to save your choices!</p>
+          <p>Select the products you don't like by checking the boxes. Once you're done, click "I Like This Look" to save your choices or "Regenerate" to replace the options you don't like!</p>
         </div>
       )}
 
@@ -278,7 +287,7 @@ function Routine() {
           </>
         )}
 
-        {/* Regenerate button always visible */}
+        {!hasLikedLook &&(
         <button
           type="button"
           style={{ ...styles.button, ...styles.submit, marginLeft: '10px' }}
@@ -286,6 +295,7 @@ function Routine() {
         >
           Regenerate
         </button>
+        )}
 
         {!hasLikedLook && (
           <button
@@ -302,5 +312,3 @@ function Routine() {
 }
 
 export default Routine;
-
-
